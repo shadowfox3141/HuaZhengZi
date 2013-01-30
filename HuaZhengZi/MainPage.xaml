@@ -19,7 +19,7 @@
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="MainZhengZiPresenter">
 
         <!-- LOCALIZATION NOTE:
             To localize the displayed strings copy their values to appropriately named
@@ -40,11 +40,11 @@
             CurrentUICulture of the app at run time.
          -->
 
-         <!--Panorama control-->
-        <phone:Panorama Title="my application" ItemsSource="{Binding}">
+        <!--Panorama control-->
+        <phone:Panorama Title="my application" ItemsSource="{Binding Path=ZhengZiPages}">
             <phone:Panorama.HeaderTemplate>
                 <DataTemplate>
-                    
+                    <TextBox Text="{Binding Path=PageName}"/>
                 </DataTemplate>
             </phone:Panorama.HeaderTemplate>
             <phone:Panorama.ItemTemplate>

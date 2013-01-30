@@ -7,11 +7,51 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Xml.Serialization;
+using System.IO;
+using System.IO.IsolatedStorage;
 
 namespace HuaZhengZi.ViewModels
 {
     public class ZhengZiPage : INotifyPropertyChanged
     {
+        public void Save(string fileName) {
+            IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
+            if (!isf.DirectoryExists(@"ZhengZiPages")) {
+                try {
+                    isf.CreateDirectory(@"ZhengZiPages");
+                } catch (IsolatedStorageException e) {
+                    Debug.WriteLine(e.ToString());
+                    return;
+                }
+            }
+            IsolatedStorageFileStream isfStream = isf.CreateFile(@"ZhengZiPages/" + fileName);
+            StreamWriter writer = new StreamWriter(isfStream);
+            XmlSerializer serializer = new XmlSerializer(typeof(ZhengZiPage));
+            serializer.Serialize(writer, this);
+
+            writer.Close();
+            isf.Dispose();
+        }
+
+        public static ZhengZiPage Load(string fileName) {
+            ZhengZiPage zhengZiPage;
+            IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
+            if (!isf.FileExists(@"ZhengZiPages/" + fileName)) {
+                return null;
+            }
+            IsolatedStorageFileStream stream = isf.OpenFile(@"ZhengZiPages/" + fileName,FileMode.Open);
+            XmlSerializer serializer = new XmlSerializer(typeof(ZhengZiPage));
+            StreamReader reader = new StreamReader(stream);
+            zhengZiPage = (ZhengZiPage)serializer.Deserialize(reader);
+
+            reader.Close();
+            isf.Dispose();
+            return zhengZiPage;
+        }
+
+        public const string DefaultDictionary = "ZhengZiPages";
+
         public ZhengZiPage() {
             _zhengZiCount = 0;
         }

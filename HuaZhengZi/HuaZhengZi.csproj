@@ -103,6 +103,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\InkPresenterPattern.cs" />
+    <Compile Include="ViewModels\ZhengZiPanel.xaml.cs">
+      <DependentUpon>ZhengZiPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ZhengZiPage.cs" />
     <Compile Include="ViewModels\ZhengZiPrensenter.cs" />
   </ItemGroup>
@@ -112,6 +116,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModels\ZhengZiPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
