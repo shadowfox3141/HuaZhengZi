@@ -15,17 +15,17 @@ namespace HuaZhengZi
 {
     public partial class App : Application
     {
-        private static ZhengZiPrensenter viewModel = null;
+        private static ZhengZiPresenter viewModel = null;
 
         /// <summary>
         /// A static ViewModel used by the views to bind against.
         /// </summary>
         /// <returns>The MainViewModel object.</returns>
-        public static ZhengZiPrensenter ViewModel {
+        public static ZhengZiPresenter ViewModel {
             get {
                 // Delay creation of the view model until necessary
                 if (viewModel == null)
-                    viewModel = new ZhengZiPrensenter();
+                    viewModel = new ZhengZiPresenter();
 
                 return viewModel;
             }
@@ -77,6 +77,9 @@ namespace HuaZhengZi
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e) {
+            if (!App.ViewModel.IsDataLoaded) {
+                App.ViewModel.LoadData();
+            }
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -92,11 +95,13 @@ namespace HuaZhengZi
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e) {
             // Ensure that required application state is persisted here.
+            ((ZhengZiPresenter)Resources["ZhengZiPresenter"]).Save();
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e) {
+            ((ZhengZiPresenter)Resources["ZhengZiPresenter"]).Save();
         }
 
         // Code to execute if a navigation fails

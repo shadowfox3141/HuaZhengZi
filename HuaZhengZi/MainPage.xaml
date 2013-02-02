@@ -13,14 +13,9 @@
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="False"
     xmlns:vm="clr-namespace:HuaZhengZi.ViewModels">
-    
-    <phone:PhoneApplicationPage.Resources>
-        <vm:ZhengZiPrensenter x:Key="MainZhengZiPresenter"/>
-    </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="MainZhengZiPresenter">
-
+    <Grid x:Name="LayoutRoot" Background="Transparent">
         <!-- LOCALIZATION NOTE:
             To localize the displayed strings copy their values to appropriately named
             keys in the app's neutral language resource file (AppResources.resx) then
@@ -49,7 +44,7 @@
             </phone:Panorama.HeaderTemplate>
             <phone:Panorama.ItemTemplate>
                 <DataTemplate>
-                    
+                    <vm:ZhengZiPanel Pattern="{StaticResource ResourceKey=ppp}" Count="{Binding Path=ZhengZiCount}"/>
                 </DataTemplate>
             </phone:Panorama.ItemTemplate>
             <phone:Panorama.Background>

@@ -108,7 +108,7 @@
       <DependentUpon>ZhengZiPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ZhengZiPage.cs" />
-    <Compile Include="ViewModels\ZhengZiPrensenter.cs" />
+    <Compile Include="ViewModels\ZhengZiPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -131,6 +131,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DefaultPatterns\DefaultPattern_Zheng.xml" />
     <Resource Include="Assets\PanoramaBackground.png" />
     <Content Include="Assets\AlignmentGrid.png" />
     <Content Include="Assets\ApplicationIcon.png">

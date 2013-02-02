@@ -8,8 +8,15 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="480" d:DesignWidth="480" x:Name="this">
+    
+    <UserControl.Resources>
+        <Style TargetType="InkPresenter" x:Key="CellInkPresenter">
+            <Setter Property="Height" Value="110"/>
+            <Setter Property="Width" Value="110"/>
+        </Style>
+    </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}" ManipulationStarted="LayoutRoot_ManipulationStarted_1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -22,5 +29,23 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
+        <InkPresenter Grid.Column="0" Grid.Row="0" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <InkPresenter Grid.Column="1" Grid.Row="0" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <InkPresenter Grid.Column="2" Grid.Row="0" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <InkPresenter Grid.Column="3" Grid.Row="0" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <InkPresenter Grid.Column="0" Grid.Row="1" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <InkPresenter Grid.Column="1" Grid.Row="1" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <InkPresenter Grid.Column="2" Grid.Row="1" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <InkPresenter Grid.Column="3" Grid.Row="1" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <InkPresenter Grid.Column="0" Grid.Row="2" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <InkPresenter Grid.Column="1" Grid.Row="2" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <InkPresenter Grid.Column="2" Grid.Row="2" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <InkPresenter Grid.Column="3" Grid.Row="2" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <InkPresenter Grid.Column="0" Grid.Row="3" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <InkPresenter Grid.Column="1" Grid.Row="3" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <InkPresenter Grid.Column="2" Grid.Row="3" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <InkPresenter Grid.Column="3" Grid.Row="3" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        
     </Grid>
 </UserControl>

@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.Diagnostics;
 
 namespace HuaZhengZi
 {
@@ -14,10 +15,12 @@ namespace HuaZhengZi
     {
         // Constructor
         public MainPage() {
+            Resources.Add("ppp", App.ViewModel.ZhengZiPattern);
             InitializeComponent();
 
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
+            
         }
 
         // Load data for the ViewModel Items
