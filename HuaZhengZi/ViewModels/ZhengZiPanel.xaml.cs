@@ -37,7 +37,9 @@ namespace HuaZhengZi.ViewModels
                 for (int i = 0; i < fullZhengZi; i++) {
                     ((InkPresenter)LayoutRoot.Children[i]).Strokes = Pattern.GetStrokeCollection();
                 }
-                ((InkPresenter)LayoutRoot.Children[fullZhengZi]).Strokes = Pattern.GetStrokeCollection(value - fullZhengZi * 5);
+                if (fullZhengZi < LayoutRoot.Children.Count) {
+                    ((InkPresenter)LayoutRoot.Children[fullZhengZi]).Strokes = Pattern.GetStrokeCollection(value - fullZhengZi * 5);
+                }
                 for (int i = fullZhengZi + 1; i < LayoutRoot.Children.Count; i++) {
                     ((InkPresenter)LayoutRoot.Children[i]).Strokes = Pattern.GetStrokeCollection(0);
                 }

@@ -13,7 +13,7 @@ using System.IO.IsolatedStorage;
 
 namespace HuaZhengZi.ViewModels
 {
-    public class ZhengZiPage : INotifyPropertyChanged
+    public class ZhengZiPage :  INotifyPropertyChanged
     {
         public void Save(string fileName) {
             IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
@@ -57,6 +57,14 @@ namespace HuaZhengZi.ViewModels
             _zhengZiCount = 0;
         }
 
+        public InkPresenterPattern Pattern {
+            get {
+                return GetPattern();
+            }
+        }
+        public event Func<InkPresenterPattern> GetPattern;
+
+
         private string _pageName;
         /// <summary>
         /// Sample ViewModel property; this property is used in the view to display its value using a Binding.
@@ -88,7 +96,7 @@ namespace HuaZhengZi.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String propertyName) {
+        public void NotifyPropertyChanged(String propertyName) {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (null != handler) {
                 handler(this, new PropertyChangedEventArgs(propertyName));

@@ -8,19 +8,21 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Diagnostics;
+using System.Windows.Data;
+using HuaZhengZi.ViewModels;
 
 namespace HuaZhengZi
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        ZhengZiPresenter zhengZiPrensenter = App.ViewModel;
+
         // Constructor
         public MainPage() {
-            Resources.Add("ppp", App.ViewModel.ZhengZiPattern);
             InitializeComponent();
 
-            // Set the data context of the listbox control to the sample data
-            DataContext = App.ViewModel;
-            
+            // Set the data context of the listbox control to the sample data      
+            DataContext = zhengZiPrensenter;
         }
 
         // Load data for the ViewModel Items

@@ -18,8 +18,6 @@
         </Style>
         
         <local:LocalizedStrings xmlns:local="clr-namespace:HuaZhengZi" x:Key="LocalizedStrings"/>
-        
-        <vm:ZhengZiPresenter x:Key="ZhengZiPresenter"/>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

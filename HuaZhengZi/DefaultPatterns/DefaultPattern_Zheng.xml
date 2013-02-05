@@ -4,45 +4,13 @@
     <Stroke>
       <StylusPoints>
         <StylusPoint>
-          <X>24</X>
-          <Y>20</Y>
+          <X>20</X>
+          <Y>10</Y>
           <PressureFactor>0.5</PressureFactor>
         </StylusPoint>
         <StylusPoint>
-          <X>24</X>
-          <Y>100</Y>
-          <PressureFactor>0.5</PressureFactor>
-        </StylusPoint>
-      </StylusPoints>
-      <DrawingAttributes>
-        <Color>
-          <A>255</A>
-          <R>0</R>
-          <G>0</G>
-          <B>0</B>
-        </Color>
-        <OutlineColor>
-          <A>0</A>
-          <R>0</R>
-          <G>0</G>
-          <B>0</B>
-        </OutlineColor>
-        <Width>3</Width>
-        <Height>3</Height>
-      </DrawingAttributes>
-    </Stroke>
-  </ArrayOfStroke>
-  <ArrayOfStroke>
-    <Stroke>
-      <StylusPoints>
-        <StylusPoint>
-          <X>48</X>
-          <Y>20</Y>
-          <PressureFactor>0.5</PressureFactor>
-        </StylusPoint>
-        <StylusPoint>
-          <X>48</X>
-          <Y>100</Y>
+          <X>20</X>
+          <Y>90</Y>
           <PressureFactor>0.5</PressureFactor>
         </StylusPoint>
       </StylusPoints>
@@ -68,45 +36,13 @@
     <Stroke>
       <StylusPoints>
         <StylusPoint>
-          <X>72</X>
-          <Y>20</Y>
+          <X>40</X>
+          <Y>10</Y>
           <PressureFactor>0.5</PressureFactor>
         </StylusPoint>
         <StylusPoint>
-          <X>72</X>
-          <Y>100</Y>
-          <PressureFactor>0.5</PressureFactor>
-        </StylusPoint>
-      </StylusPoints>
-      <DrawingAttributes>
-        <Color>
-          <A>255</A>
-          <R>0</R>
-          <G>0</G>
-          <B>0</B>
-        </Color>
-        <OutlineColor>
-          <A>0</A>
-          <R>0</R>
-          <G>0</G>
-          <B>0</B>
-        </OutlineColor>
-        <Width>3</Width>
-        <Height>3</Height>
-      </DrawingAttributes>
-    </Stroke>
-  </ArrayOfStroke>
-  <ArrayOfStroke>
-    <Stroke>
-      <StylusPoints>
-        <StylusPoint>
-          <X>96</X>
-          <Y>20</Y>
-          <PressureFactor>0.5</PressureFactor>
-        </StylusPoint>
-        <StylusPoint>
-          <X>96</X>
-          <Y>100</Y>
+          <X>40</X>
+          <Y>90</Y>
           <PressureFactor>0.5</PressureFactor>
         </StylusPoint>
       </StylusPoints>
@@ -132,13 +68,77 @@
     <Stroke>
       <StylusPoints>
         <StylusPoint>
-          <X>12</X>
-          <Y>100</Y>
+          <X>60</X>
+          <Y>10</Y>
           <PressureFactor>0.5</PressureFactor>
         </StylusPoint>
         <StylusPoint>
-          <X>108</X>
-          <Y>20</Y>
+          <X>60</X>
+          <Y>90</Y>
+          <PressureFactor>0.5</PressureFactor>
+        </StylusPoint>
+      </StylusPoints>
+      <DrawingAttributes>
+        <Color>
+          <A>255</A>
+          <R>0</R>
+          <G>0</G>
+          <B>0</B>
+        </Color>
+        <OutlineColor>
+          <A>0</A>
+          <R>0</R>
+          <G>0</G>
+          <B>0</B>
+        </OutlineColor>
+        <Width>3</Width>
+        <Height>3</Height>
+      </DrawingAttributes>
+    </Stroke>
+  </ArrayOfStroke>
+  <ArrayOfStroke>
+    <Stroke>
+      <StylusPoints>
+        <StylusPoint>
+          <X>80</X>
+          <Y>10</Y>
+          <PressureFactor>0.5</PressureFactor>
+        </StylusPoint>
+        <StylusPoint>
+          <X>80</X>
+          <Y>90</Y>
+          <PressureFactor>0.5</PressureFactor>
+        </StylusPoint>
+      </StylusPoints>
+      <DrawingAttributes>
+        <Color>
+          <A>255</A>
+          <R>0</R>
+          <G>0</G>
+          <B>0</B>
+        </Color>
+        <OutlineColor>
+          <A>0</A>
+          <R>0</R>
+          <G>0</G>
+          <B>0</B>
+        </OutlineColor>
+        <Width>3</Width>
+        <Height>3</Height>
+      </DrawingAttributes>
+    </Stroke>
+  </ArrayOfStroke>
+  <ArrayOfStroke>
+    <Stroke>
+      <StylusPoints>
+        <StylusPoint>
+          <X>10</X>
+          <Y>90</Y>
+          <PressureFactor>0.5</PressureFactor>
+        </StylusPoint>
+        <StylusPoint>
+          <X>90</X>
+          <Y>10</Y>
           <PressureFactor>0.5</PressureFactor>
         </StylusPoint>
       </StylusPoints>

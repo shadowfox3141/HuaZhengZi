@@ -4,6 +4,7 @@ using System.ComponentModel;
 using HuaZhengZi.Resources;
 using System.IO.IsolatedStorage;
 using System.IO;
+using System.Windows;
 
 namespace HuaZhengZi.ViewModels
 {
@@ -46,6 +47,9 @@ namespace HuaZhengZi.ViewModels
                 if (!(value == _zhengZiPattern)) {
                     _zhengZiPattern = value;
                     NotifyPropertyChanged("ZhengZiPattern");
+                    foreach (ZhengZiPage zhengZiPage in ZhengZiPages) {
+                        zhengZiPage.NotifyPropertyChanged("Pattern");
+                    }
                 }
             }
         }
@@ -96,6 +100,9 @@ namespace HuaZhengZi.ViewModels
                         ZhengZiPages.Add(ZhengZiPage.Load(zhengZiFileName));
                     }
                 }
+                foreach (ZhengZiPage zhengZiPage in ZhengZiPages) {
+                    zhengZiPage.GetPattern += zhengZiPage_GetPattern;
+                }
 
                 if (patternPath.StartsWith("Default")) {
                     ZhengZiPattern = InkPresenterPattern.LoadDefault(patternPath);
@@ -104,6 +111,10 @@ namespace HuaZhengZi.ViewModels
                 }
             }
             this.IsDataLoaded = true;
+        }
+
+        InkPresenterPattern zhengZiPage_GetPattern() {
+            return ZhengZiPattern;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

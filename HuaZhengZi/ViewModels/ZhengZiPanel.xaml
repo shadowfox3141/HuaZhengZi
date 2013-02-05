@@ -11,8 +11,13 @@
     
     <UserControl.Resources>
         <Style TargetType="InkPresenter" x:Key="CellInkPresenter">
-            <Setter Property="Height" Value="110"/>
-            <Setter Property="Width" Value="110"/>
+            <Setter Property="Height" Value="100"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform CenterX="0" CenterY="0" ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
         </Style>
     </UserControl.Resources>
 
