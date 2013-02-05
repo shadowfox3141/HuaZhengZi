@@ -8,8 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="False"
     xmlns:vm="clr-namespace:HuaZhengZi.ViewModels"
@@ -37,20 +35,34 @@
          -->
 
         <!--Panorama control-->
-        <phone:Panorama Title="my application" ItemsSource="{Binding Path=ZhengZiPages}" x:Name="PanoramaRoot">
+        <phone:Panorama ItemsSource="{Binding Path=ZhengZiPages}" x:Name="PanoramaRoot">
+            <phone:Panorama.Title>
+                <TextBlock Text="正字计数器" FontSize="108" Foreground="White" Margin="0,20,0,0"/>
+            </phone:Panorama.Title>
             <phone:Panorama.HeaderTemplate>
                 <DataTemplate>
-                    <TextBox Text="{Binding Path=PageName}"/>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="{Binding Path=PageName}" Width="360" Foreground="White"
+                                 FontSize="{StaticResource PhoneFontSizeMediumLarge}"
+                                 HorizontalAlignment="Left" x:Name="PanoramaTitleTextBox"
+                                 Background="Transparent" BorderThickness="0"/>
+                            <TextBlock Text="{Binding Path=ZhengZiCount}" Width="60"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   FontSize="{StaticResource PhoneFontSizeExtraLarge}"/>
+                        </StackPanel>
+                        <Border BorderThickness="1" BorderBrush="White"/>
+                    </StackPanel>
                 </DataTemplate>
             </phone:Panorama.HeaderTemplate>
             <phone:Panorama.ItemTemplate>
                 <DataTemplate>
-                    <vm:ZhengZiPanel Count="{Binding Path=ZhengZiCount}" Pattern="{Binding Path=Pattern}">
-                    </vm:ZhengZiPanel>
+                    <vm:ZhengZiPanel Count="{Binding Path=ZhengZiCount,Mode=TwoWay}" 
+                                         Pattern="{Binding Path=Pattern}" Margin="0,0,0,80"/>
                 </DataTemplate>
             </phone:Panorama.ItemTemplate>
             <phone:Panorama.Background>
-                <ImageBrush ImageSource="/HuaZhengZi;component/Assets/PanoramaBackground.png"/>
+                <SolidColorBrush Color="#FF436C47"/>
             </phone:Panorama.Background>
         </phone:Panorama>
 

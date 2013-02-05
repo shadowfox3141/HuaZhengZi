@@ -31,7 +31,7 @@ namespace HuaZhengZi.ViewModels
         public int Count {
             set {
                 if (value > LayoutRoot.Children.Count * InkPresenterPattern.HighestCount) {
-                    throw new OverflowException("ZhengZiPanel is all filled! ");
+                    throw new Exception("ZhengZiPanel is all filled! ");
                 }
                 int fullZhengZi = (int)Math.Floor((double)value / 5.0);
                 for (int i = 0; i < fullZhengZi; i++) {
@@ -51,8 +51,14 @@ namespace HuaZhengZi.ViewModels
             }
         }
 
-        private void LayoutRoot_ManipulationStarted_1(object sender, System.Windows.Input.ManipulationStartedEventArgs e) {
-            Count += 1;
+        private void LayoutRoot_ManipulationStarted(object sender, System.Windows.Input.ManipulationStartedEventArgs e) {
+            try { 
+                Count += 1; 
+            } catch (Exception exc) {
+                if (exc.Message == "ZhengZiPanel is all filled! ") {
+                    MessageBox.Show("这一夜已经画满了哦~\n是什么事情发生了这么多次？");
+                }
+            }
         }
     }
 }

@@ -53,7 +53,7 @@ namespace HuaZhengZi.ViewModels
         public const string DefaultDictionary = "ZhengZiPages";
 
         public ZhengZiPage() {
-            _pageName = "Enter Your Title";
+            _pageName = "Enter Your Title Here";
             _zhengZiCount = 0;
         }
 

@@ -8,7 +8,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="480" d:DesignWidth="480" x:Name="this">
-    
+
     <UserControl.Resources>
         <Style TargetType="InkPresenter" x:Key="CellInkPresenter">
             <Setter Property="Height" Value="100"/>
@@ -18,10 +18,11 @@
                     <ScaleTransform CenterX="0" CenterY="0" ScaleX="1" ScaleY="1"/>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Background" Value="Transparent"/>
         </Style>
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}" ManipulationStarted="LayoutRoot_ManipulationStarted_1">
+    <Grid x:Name="LayoutRoot" Background="Transparent" ManipulationStarted="LayoutRoot_ManipulationStarted">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -34,7 +35,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <InkPresenter Grid.Column="0" Grid.Row="0" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
         <InkPresenter Grid.Column="1" Grid.Row="0" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
         <InkPresenter Grid.Column="2" Grid.Row="0" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
@@ -51,6 +52,6 @@
         <InkPresenter Grid.Column="1" Grid.Row="3" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
         <InkPresenter Grid.Column="2" Grid.Row="3" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
         <InkPresenter Grid.Column="3" Grid.Row="3" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
-        
+
     </Grid>
 </UserControl>
