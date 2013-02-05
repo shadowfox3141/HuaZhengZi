@@ -53,10 +53,11 @@ namespace HuaZhengZi.ViewModels
         public const string DefaultDictionary = "ZhengZiPages";
 
         public ZhengZiPage() {
-            _pageName = "Enter Your Title Here";
+            _pageName = "EnterYourTitleHere";
             _zhengZiCount = 0;
         }
 
+        [XmlIgnore]
         public InkPresenterPattern Pattern {
             get {
                 return GetPattern();

@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using System.Windows.Ink;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.Windows.Data;
 
 namespace HuaZhengZi.ViewModels
 {
@@ -56,7 +57,7 @@ namespace HuaZhengZi.ViewModels
                 Count += 1; 
             } catch (Exception exc) {
                 if (exc.Message == "ZhengZiPanel is all filled! ") {
-                    MessageBox.Show("这一夜已经画满了哦~\n是什么事情发生了这么多次？");
+                    MessageBox.Show("这一页已经画满了哦~\n是什么事情发生了这么多次？");
                 }
             }
         }

@@ -20,15 +20,21 @@ namespace HuaZhengZi
         // Constructor
         public MainPage() {
             InitializeComponent();
-
             // Set the data context of the listbox control to the sample data      
             DataContext = zhengZiPrensenter;
+            
         }
 
         // Load data for the ViewModel Items
         protected override void OnNavigatedTo(NavigationEventArgs e) {
             if (!App.ViewModel.IsDataLoaded) {
                 App.ViewModel.LoadData();
+            }
+        }
+
+        private void ZhengZiPanel_Loaded(object sender, RoutedEventArgs e) {
+            foreach (ZhengZiPage zhengZiPage in zhengZiPrensenter.ZhengZiPages) {
+                zhengZiPage.NotifyPropertyChanged("ZhengZiCount");
             }
         }
     }

@@ -58,7 +58,8 @@
             <phone:Panorama.ItemTemplate>
                 <DataTemplate>
                     <vm:ZhengZiPanel Count="{Binding Path=ZhengZiCount,Mode=TwoWay}" 
-                                         Pattern="{Binding Path=Pattern}" Margin="0,0,0,80"/>
+                                     Pattern="{Binding Path=Pattern}" Margin="0,0,0,80"
+                                     Loaded="ZhengZiPanel_Loaded"/>
                 </DataTemplate>
             </phone:Panorama.ItemTemplate>
             <phone:Panorama.Background>
