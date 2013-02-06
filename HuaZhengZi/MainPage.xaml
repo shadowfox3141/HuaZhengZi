@@ -43,7 +43,7 @@
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Text="{Binding Path=PageName}" Width="360" Foreground="White"
+                            <TextBox Text="{Binding Path=PageName,Mode=TwoWay}" Width="360" Foreground="White"
                                      GotFocus="PanoramaTitleTextBox_GotFocus" LostFocus="PanoramaTitleTextBox_LostFocus"
                                  FontSize="{StaticResource PhoneFontSizeMediumLarge}"
                                  HorizontalAlignment="Left" x:Name="PanoramaTitleTextBox"
@@ -78,4 +78,11 @@
         <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
 
     </Grid>
+    
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar Opacity="0.5">
+            <shell:ApplicationBarIconButton IconUri="Images/appbar.add.rest.png" Text="Add" Click="ApplicationBarIconButton_Add_Click"/>
+            <shell:ApplicationBarIconButton IconUri="Images/appbar.delete.rest.png" Text="Delete" Click="ApplicationBarIconButton_Delete_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>

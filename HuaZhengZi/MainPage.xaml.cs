@@ -25,7 +25,7 @@ namespace HuaZhengZi
             InitializeComponent();
             // Set the data context of the listbox control to the sample data      
             DataContext = zhengZiPrensenter;
-            
+            PanoramaRoot.SetValue(Panorama.SelectedItemProperty, PanoramaRoot.Items[zhengZiPrensenter.CurrentPage]);
         }
 
         // Load data for the ViewModel Items
@@ -33,14 +33,19 @@ namespace HuaZhengZi
             if (!App.ViewModel.IsDataLoaded) {
                 App.ViewModel.LoadData();
             }
+            
+        }
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e) {
+            zhengZiPrensenter.CurrentPage = FixSelectedIndex;
+            base.OnNavigatingFrom(e);
         }
 
         private void Grid_Tap(object sender, System.Windows.Input.GestureEventArgs e) {
             if (isTapAccessible) {
                 try {
-                    zhengZiPrensenter.ZhengZiPages[PanoramaRoot.SelectedIndex].ZhengZiCount += 1;
+                    zhengZiPrensenter.ZhengZiPages[FixSelectedIndex].ZhengZiCount += 1;
                 } catch (Exception exc){
-                    zhengZiPrensenter.ZhengZiPages[PanoramaRoot.SelectedIndex].ZhengZiCount -= 1;
+                    zhengZiPrensenter.ZhengZiPages[FixSelectedIndex].ZhengZiCount -= 1;
                 }
             }
         }
@@ -53,6 +58,36 @@ namespace HuaZhengZi
         private void PanoramaTitleTextBox_LostFocus(object sender, RoutedEventArgs e) {
             ((TextBox)sender).Background = new SolidColorBrush(Color.FromArgb(0, 255, 255, 255));
             isTapAccessible = true;
+        }
+
+        private void ApplicationBarIconButton_Add_Click(object sender, EventArgs e) {
+            int currentIndex = FixSelectedIndex;
+            zhengZiPrensenter.ZhengZiPages.Add(new ZhengZiPage());
+            PanoramaRoot.SetValue(Panorama.SelectedItemProperty, PanoramaRoot.Items[currentIndex]);
+        }
+
+        private void ApplicationBarIconButton_Delete_Click(object sender, EventArgs e) {
+            int currentIndex = FixSelectedIndex;
+            if ((zhengZiPrensenter.ZhengZiPages.Count == 1) && (zhengZiPrensenter.ZhengZiPages[0].ZhengZiCount == 0)) {
+                zhengZiPrensenter.ZhengZiPages[0].PageName = ZhengZiPage.DefaultPageName;
+            } else if (zhengZiPrensenter.ZhengZiPages.Count == 1) {
+                zhengZiPrensenter.ZhengZiPages[0].PageName = ZhengZiPage.DefaultPageName;
+                zhengZiPrensenter.ZhengZiPages[0].ZhengZiCount = 0;
+            } else {
+                zhengZiPrensenter.ZhengZiPages.RemoveAt(FixSelectedIndex);
+                PanoramaRoot.SetValue(Panorama.SelectedItemProperty, PanoramaRoot.Items[currentIndex]);
+            }
+        }
+
+        int FixSelectedIndex{
+            get {
+                ZhengZiPage currentPage = PanoramaRoot.SelectedItem as ZhengZiPage;
+                if (currentPage == null) {
+                    currentPage = ((PanoramaItem)PanoramaRoot.SelectedItem).DataContext as ZhengZiPage;
+                }
+                int index = currentPage.Index;
+                return index;
+            }
         }
     }
 }

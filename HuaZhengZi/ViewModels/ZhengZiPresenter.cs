@@ -10,9 +10,19 @@ namespace HuaZhengZi.ViewModels
 {
     public class ZhengZiPresenter : INotifyPropertyChanged
     {
+        int currentPage;
+        public int CurrentPage {
+            set {
+                currentPage = value;
+            }
+            get {
+                return currentPage;
+            }
+        }
+
         public ZhengZiPresenter() {
             this.ZhengZiPages = new ObservableCollection<ZhengZiPage>();
-
+            ZhengZiPages.CollectionChanged += ZhengZiPages_CollectionChanged;
             IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
             if (!isf.DirectoryExists(ZhengZiPage.DefaultDictionary)) {
                 isf.CreateDirectory(ZhengZiPage.DefaultDictionary);
@@ -29,7 +39,7 @@ namespace HuaZhengZi.ViewModels
                 setting.Save();
 
                 foreach (ZhengZiPage zhengZiPage in ZhengZiPages) {
-                    zhengZiPage.Save(zhengZiPage.PageName);
+                    zhengZiPage.Save("Page_" + zhengZiPage.Index.ToString());
                 }
             }
         }
@@ -54,19 +64,6 @@ namespace HuaZhengZi.ViewModels
             }
         }
 
-        private int _currentPage;
-        public int CurrentPage {
-            set {
-                if (!(value == _currentPage)) {
-                    _currentPage = value;
-                    NotifyPropertyChanged("CurrentPage");
-                }
-            }
-            get {
-                return _currentPage;
-            }
-        }
-
         public bool IsDataLoaded {
             get;
             private set;
@@ -81,7 +78,7 @@ namespace HuaZhengZi.ViewModels
             if (!System.ComponentModel.DesignerProperties.IsInDesignTool) {
                 IsolatedStorageSettings setting = IsolatedStorageSettings.ApplicationSettings;
                 
-                if (!setting.TryGetValue<int>("CurrentPage", out _currentPage)){
+                if (!setting.TryGetValue<int>("CurrentPage", out currentPage)){
                     CurrentPage = 0;
                     setting.Add("CurrentPage", 0);
                 }
@@ -100,8 +97,8 @@ namespace HuaZhengZi.ViewModels
                         ZhengZiPages.Add(ZhengZiPage.Load(zhengZiFileName));
                     }
                 }
-                foreach (ZhengZiPage zhengZiPage in ZhengZiPages) {
-                    zhengZiPage.GetPattern += zhengZiPage_GetPattern;
+                foreach (ZhengZiPage page in ZhengZiPages) {
+                    page.GetPattern += page_GetPattern;
                 }
 
                 if (patternPath.StartsWith("Default")) {
@@ -110,10 +107,20 @@ namespace HuaZhengZi.ViewModels
                     ZhengZiPattern = InkPresenterPattern.Load(patternPath);
                 }
             }
+            
             this.IsDataLoaded = true;
         }
 
-        InkPresenterPattern zhengZiPage_GetPattern() {
+        void ZhengZiPages_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) {
+            for (int i = 0; i < ZhengZiPages.Count;i++ ) {
+                ZhengZiPages[i].Index = i;
+                if (!ZhengZiPages[i].IsPatternAttached) {
+                    ZhengZiPages[i].GetPattern += page_GetPattern;
+                }
+            }
+        }
+
+        InkPresenterPattern page_GetPattern() {
             return ZhengZiPattern;
         }
 

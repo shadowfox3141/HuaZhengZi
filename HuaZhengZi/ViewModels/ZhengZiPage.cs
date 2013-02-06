@@ -15,6 +15,11 @@ namespace HuaZhengZi.ViewModels
 {
     public class ZhengZiPage :  INotifyPropertyChanged
     {
+        public bool IsPatternAttached {
+            get { return (GetPattern != null); }
+        }
+        public int Index { set; get; }
+
         public void Save(string fileName) {
             IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
             if (!isf.DirectoryExists(@"ZhengZiPages")) {
@@ -51,9 +56,10 @@ namespace HuaZhengZi.ViewModels
         }
 
         public const string DefaultDictionary = "ZhengZiPages";
+        public const string DefaultPageName = "Enter Your Title Here";
 
         public ZhengZiPage() {
-            _pageName = "EnterYourTitleHere";
+            _pageName = DefaultPageName;
             _zhengZiCount = 0;
         }
 
