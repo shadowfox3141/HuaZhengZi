@@ -17,8 +17,8 @@ namespace HuaZhengZi.ViewModels
             if (!isf.DirectoryExists(ZhengZiPage.DefaultDictionary)) {
                 isf.CreateDirectory(ZhengZiPage.DefaultDictionary);
             }
-            if (!isf.DirectoryExists(InkPresenterPattern.DefaultDictionary)) {
-                isf.CreateDirectory(InkPresenterPattern.DefaultDictionary);
+            if (!isf.DirectoryExists(InkPresenterPattern.UserDictionary)) {
+                isf.CreateDirectory(InkPresenterPattern.UserDictionary);
             }
         }
 
@@ -86,8 +86,8 @@ namespace HuaZhengZi.ViewModels
                     setting.Add("CurrentPage", 0);
                 }
                 if (!setting.TryGetValue<string>("DisplayingPattern", out patternPath)) {
-                    patternPath = @"DefaultPatterns/DefaultPattern_Zheng.xml";
-                    setting.Add("DisplayingPattern", @"DefaultPatterns/DefaultPattern_Zheng.xml");
+                    patternPath = @"DefaultPattern_Zheng.xml";
+                    setting.Add("DisplayingPattern", @"DefaultPattern_Zheng.xml");
                 }
                
                 IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();

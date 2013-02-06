@@ -22,7 +22,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="Transparent" ManipulationStarted="LayoutRoot_ManipulationStarted">
+    <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>

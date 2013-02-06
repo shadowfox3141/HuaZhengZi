@@ -44,6 +44,7 @@
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
                             <TextBox Text="{Binding Path=PageName}" Width="360" Foreground="White"
+                                     GotFocus="PanoramaTitleTextBox_GotFocus" LostFocus="PanoramaTitleTextBox_LostFocus"
                                  FontSize="{StaticResource PhoneFontSizeMediumLarge}"
                                  HorizontalAlignment="Left" x:Name="PanoramaTitleTextBox"
                                  Background="Transparent" BorderThickness="0"/>
@@ -57,9 +58,10 @@
             </phone:Panorama.HeaderTemplate>
             <phone:Panorama.ItemTemplate>
                 <DataTemplate>
-                    <vm:ZhengZiPanel Count="{Binding Path=ZhengZiCount,Mode=TwoWay}" 
-                                     Pattern="{Binding Path=Pattern}" Margin="0,0,0,80"
-                                     Loaded="ZhengZiPanel_Loaded"/>
+                    <Grid Tap="Grid_Tap">
+                        <vm:ZhengZiPanel Pattern="{Binding Path=Pattern}" 
+                                         Count="{Binding Path=ZhengZiCount}" Margin="0,0,0,80"/>
+                    </Grid>
                 </DataTemplate>
             </phone:Panorama.ItemTemplate>
             <phone:Panorama.Background>

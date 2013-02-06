@@ -10,11 +10,14 @@ using Microsoft.Phone.Shell;
 using System.Diagnostics;
 using System.Windows.Data;
 using HuaZhengZi.ViewModels;
+using System.Windows.Media;
 
 namespace HuaZhengZi
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        bool isTapAccessible = true;
+
         ZhengZiPresenter zhengZiPrensenter = App.ViewModel;
 
         // Constructor
@@ -32,10 +35,24 @@ namespace HuaZhengZi
             }
         }
 
-        private void ZhengZiPanel_Loaded(object sender, RoutedEventArgs e) {
-            foreach (ZhengZiPage zhengZiPage in zhengZiPrensenter.ZhengZiPages) {
-                zhengZiPage.NotifyPropertyChanged("ZhengZiCount");
+        private void Grid_Tap(object sender, System.Windows.Input.GestureEventArgs e) {
+            if (isTapAccessible) {
+                try {
+                    zhengZiPrensenter.ZhengZiPages[PanoramaRoot.SelectedIndex].ZhengZiCount += 1;
+                } catch (Exception exc){
+                    zhengZiPrensenter.ZhengZiPages[PanoramaRoot.SelectedIndex].ZhengZiCount -= 1;
+                }
             }
+        }
+
+        private void PanoramaTitleTextBox_GotFocus(object sender, RoutedEventArgs e) {
+            ((TextBox)sender).Background = new SolidColorBrush(Color.FromArgb(120, 255, 255, 255));
+            isTapAccessible = false;
+        }
+
+        private void PanoramaTitleTextBox_LostFocus(object sender, RoutedEventArgs e) {
+            ((TextBox)sender).Background = new SolidColorBrush(Color.FromArgb(0, 255, 255, 255));
+            isTapAccessible = true;
         }
     }
 }
