@@ -10,6 +10,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using HuaZhengZi.Resources;
 using HuaZhengZi.ViewModels;
+using System.Windows.Controls.Primitives;
 
 namespace HuaZhengZi
 {

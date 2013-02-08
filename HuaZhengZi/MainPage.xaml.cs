@@ -89,5 +89,13 @@ namespace HuaZhengZi
                 return index;
             }
         }
+
+        private void KSST_Click(object sender, EventArgs e) {
+            
+        }
+
+        private void SZTY_Click(object sender, EventArgs e) {
+            NavigationService.Navigate(new Uri("/PatternMenager.xaml", UriKind.Relative));
+        }
     }
 }

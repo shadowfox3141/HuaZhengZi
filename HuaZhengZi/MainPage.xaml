@@ -81,8 +81,14 @@
     
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar Opacity="0.5">
-            <shell:ApplicationBarIconButton IconUri="Images/appbar.add.rest.png" Text="Add" Click="ApplicationBarIconButton_Add_Click"/>
-            <shell:ApplicationBarIconButton IconUri="Images/appbar.delete.rest.png" Text="Delete" Click="ApplicationBarIconButton_Delete_Click"/>
+            <shell:ApplicationBarIconButton IconUri="Images/appbar.add.rest.png"
+                                            Text="Add" Click="ApplicationBarIconButton_Add_Click"/>
+            <shell:ApplicationBarIconButton IconUri="Images/appbar.delete.rest.png"
+                                            Text="Delete" Click="ApplicationBarIconButton_Delete_Click"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="快速视图" x:Name="KSST" Click="KSST_Click"/>
+                <shell:ApplicationBarMenuItem Text="选择图样" x:Name="SZTY" Click="SZTY_Click"/>
+            </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>
