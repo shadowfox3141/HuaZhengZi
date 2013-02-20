@@ -11,6 +11,7 @@
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="False"
     xmlns:vm="clr-namespace:HuaZhengZi.ViewModels"
+    xmlns:uc="clr-namespace:HuaZhengZi.UserControls"
     x:Name="mainPage">
     
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -59,7 +60,7 @@
             <phone:Panorama.ItemTemplate>
                 <DataTemplate>
                     <Grid Tap="Grid_Tap">
-                        <vm:ZhengZiPanel Pattern="{Binding Path=Pattern}" 
+                        <uc:ZhengZiPanel Pattern="{Binding Path=Pattern}" 
                                          Count="{Binding Path=ZhengZiCount}" Margin="0,0,0,80"/>
                     </Grid>
                 </DataTemplate>

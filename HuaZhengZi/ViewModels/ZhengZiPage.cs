@@ -64,12 +64,12 @@ namespace HuaZhengZi.ViewModels
         }
 
         [XmlIgnore]
-        public InkPresenterPattern Pattern {
+        public StrokePattern Pattern {
             get {
                 return GetPattern();
             }
         }
-        public event Func<InkPresenterPattern> GetPattern;
+        public event Func<StrokePattern> GetPattern;
 
 
         private string _pageName;

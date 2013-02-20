@@ -9,12 +9,13 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Windows;
 using System.Xml.Serialization;
+using System.Collections.ObjectModel;
 
 namespace HuaZhengZi.ViewModels
 {
-    public class InkPresenterPattern : INotifyPropertyChanged
+    public class StrokePattern : INotifyPropertyChanged
     {
-        public InkPresenterPattern() {
+        public StrokePattern() {
             Items = new List<StrokeCollection>(HighestCount);
         }
 
@@ -55,31 +56,63 @@ namespace HuaZhengZi.ViewModels
                 writer.Close();
             }
         }
-        public static InkPresenterPattern Load(string fileName) {
-            InkPresenterPattern pattern;
+        public static StrokePattern Load(string fileName) {
+            StrokePattern pattern;
             if (System.ComponentModel.DesignerProperties.IsInDesignTool) {
-                return new InkPresenterPattern();
+                return new StrokePattern();
             } else {
                 IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
                 if (isf.FileExists(UserDictionary + "/" + fileName)) {
                     FileStream stream = isf.OpenFile(UserDictionary + "/" + fileName, FileMode.Open);
                     StreamReader reader = new StreamReader(stream);
-                    XmlSerializer serializer = new XmlSerializer(typeof(InkPresenterPattern));
-                    pattern = (InkPresenterPattern)serializer.Deserialize(reader);
+                    XmlSerializer serializer = new XmlSerializer(typeof(StrokePattern));
+                    pattern = (StrokePattern)serializer.Deserialize(reader);
                 } else {
                     throw new KeyNotFoundException("No PatternName found");
                 }
                 return pattern;
             }
         }
-        public static InkPresenterPattern LoadDefault(string fileName) {
-            InkPresenterPattern pattern;
+        public static StrokePattern LoadDefault(string fileName) {
+            StrokePattern pattern;
             FileStream stream = File.Open(DefaultDictiony + "/" + fileName, FileMode.Open);
             StreamReader reader = new StreamReader(stream);
-            XmlSerializer serializer = new XmlSerializer(typeof(InkPresenterPattern));
-            pattern = (InkPresenterPattern)serializer.Deserialize(reader);
+            XmlSerializer serializer = new XmlSerializer(typeof(StrokePattern));
+            pattern = (StrokePattern)serializer.Deserialize(reader);
             reader.Close();
             return pattern;
+        }
+
+        public static ObservableCollection<StrokePattern> LoadAll() {
+            ObservableCollection<StrokePattern> userPatterns = new ObservableCollection<StrokePattern>();
+            IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
+            foreach (var file in isf.GetFileNames(UserDictionary)) {
+                StrokePattern pattern;
+                if (isf.FileExists(UserDictionary + "/" + file)) {
+                    FileStream stream = isf.OpenFile(UserDictionary + "/" + file, FileMode.Open);
+                    StreamReader reader = new StreamReader(stream);
+                    XmlSerializer serializer = new XmlSerializer(typeof(StrokePattern));
+                    pattern = (StrokePattern)serializer.Deserialize(reader);
+                } else {
+                    throw new KeyNotFoundException("No PatternName found");
+                }
+                userPatterns.Add(pattern);
+            }
+            return userPatterns;
+        }
+
+        public static ObservableCollection<StrokePattern> LoadDefaultAll() {
+            ObservableCollection<StrokePattern> defaultPatterns = new ObservableCollection<StrokePattern>();
+            DirectoryInfo DefaultDic = new DirectoryInfo(DefaultDictiony);
+            foreach (var file in DefaultDic.GetFiles()) {
+                FileStream stream = File.Open(file.FullName, FileMode.Open);
+                StreamReader reader = new StreamReader(stream);
+                XmlSerializer serializer = new XmlSerializer(typeof(StrokePattern));
+                StrokePattern pattern = (StrokePattern)serializer.Deserialize(reader);
+                reader.Close();
+                defaultPatterns.Add(pattern);
+            }
+            return defaultPatterns;
         }
 
         public StrokeCollection GetStrokeCollection(int count = HighestCount) {

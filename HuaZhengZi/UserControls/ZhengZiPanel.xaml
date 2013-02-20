@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="HuaZhengZi.UserControls.ZhengZiPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:cd="clr=namespace:HuaZhengZi.Codes"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480" Name="this"
+    xmlns:uc="clr-namespace:HuaZhengZi.UserControls">
+
+    <UserControl.Resources>
+        <Style TargetType="uc:InkPattern"  x:Key="CellInkPresenter">
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform CenterX="0" CenterY="0" ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderVisibility" Value="True"/>
+            <Setter Property="Margin" Value="0,0,0,0"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <uc:InkPattern Grid.Column="0" Grid.Row="0" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <uc:InkPattern Grid.Column="1" Grid.Row="0" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <uc:InkPattern Grid.Column="2" Grid.Row="0" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <uc:InkPattern Grid.Column="3" Grid.Row="0" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <uc:InkPattern Grid.Column="0" Grid.Row="1" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <uc:InkPattern Grid.Column="1" Grid.Row="1" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <uc:InkPattern Grid.Column="2" Grid.Row="1" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <uc:InkPattern Grid.Column="3" Grid.Row="1" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <uc:InkPattern Grid.Column="0" Grid.Row="2" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <uc:InkPattern Grid.Column="1" Grid.Row="2" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <uc:InkPattern Grid.Column="2" Grid.Row="2" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <uc:InkPattern Grid.Column="3" Grid.Row="2" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <uc:InkPattern Grid.Column="0" Grid.Row="3" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <uc:InkPattern Grid.Column="1" Grid.Row="3" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <uc:InkPattern Grid.Column="2" Grid.Row="3" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+        <uc:InkPattern Grid.Column="3" Grid.Row="3" Style="{StaticResource ResourceKey=CellInkPresenter}"/>
+
+    </Grid>
+</UserControl>

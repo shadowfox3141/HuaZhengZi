@@ -18,7 +18,7 @@ namespace HuaZhengZi
     {
         bool isTapAccessible = true;
 
-        ZhengZiPresenter zhengZiPrensenter = App.ViewModel;
+        ZhengZiPresenter zhengZiPrensenter = App.ZhengZiViewModel;
 
         // Constructor
         public MainPage() {
@@ -30,8 +30,8 @@ namespace HuaZhengZi
 
         // Load data for the ViewModel Items
         protected override void OnNavigatedTo(NavigationEventArgs e) {
-            if (!App.ViewModel.IsDataLoaded) {
-                App.ViewModel.LoadData();
+            if (!App.ZhengZiViewModel.IsDataLoaded) {
+                App.ZhengZiViewModel.LoadData();
             }
             
         }

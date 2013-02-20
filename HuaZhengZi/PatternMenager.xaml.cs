@@ -12,8 +12,12 @@ namespace HuaZhengZi
 {
     public partial class PatternMenager : PhoneApplicationPage
     {
+        ViewModels.PatternPresenter patternPresenter = App.PatternViewModel;
+
         public PatternMenager() {
             InitializeComponent();
+
+            DataContext = patternPresenter;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {

@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="HuaZhengZi.UserControls.InkPattern"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cd="clr-namespace:HuaZhengZi.Codes"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="100" d:DesignWidth="100"
+    x:Name="this">
+    <UserControl.Resources>
+        <cd:BorderVisibilityConverter x:Key="VisibilityConverter"/>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="Transparent"  Width="110" Height="110">
+        <Border BorderBrush="White" 
+                BorderThickness="{Binding ElementName=this,Path=BorderVisibility,Converter={StaticResource ResourceKey=VisibilityConverter}}"
+                Margin="0,0,0,0">
+            <InkPresenter x:Name="inkPresenter" Height="100" Width="100"
+                      Background="Transparent" Margin="0,0,0,0">
+            </InkPresenter>
+        </Border>
+    </Grid>
+</UserControl>

@@ -9,8 +9,9 @@ using System.Windows.Ink;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.Windows.Data;
+using HuaZhengZi.ViewModels;
 
-namespace HuaZhengZi.ViewModels
+namespace HuaZhengZi.UserControls
 {
     public partial class ZhengZiPanel : UserControl
     {
@@ -18,13 +19,22 @@ namespace HuaZhengZi.ViewModels
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty PatternProperty = DependencyProperty.Register("Pattern", typeof(InkPresenterPattern),
-            typeof(ZhengZiPanel), null);
+        public static readonly DependencyProperty PatternProperty = DependencyProperty.Register("Pattern", typeof(StrokePattern),
+            typeof(ZhengZiPanel), new PropertyMetadata(ssss));
 
-        public InkPresenterPattern Pattern {
-            set { SetValue(PatternProperty, value); }
+        private static void ssss(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+            ZhengZiPanel sender=d as ZhengZiPanel;
+            foreach (var inkPattern in sender.LayoutRoot.Children) {
+                (inkPattern as InkPattern).Pattern = (StrokePattern)e.NewValue;
+            }
+        }
+
+        public StrokePattern Pattern {
+            set { 
+                SetValue(PatternProperty, value); 
+            }
             get {
-                return (InkPresenterPattern)GetValue(PatternProperty);
+                return (StrokePattern)GetValue(PatternProperty);
             }
         }
 
@@ -42,19 +52,19 @@ namespace HuaZhengZi.ViewModels
 
         private static void ModifyPanel(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             ZhengZiPanel sender = d as ZhengZiPanel;
-            if ((int)e.NewValue > sender.LayoutRoot.Children.Count * InkPresenterPattern.HighestCount) {
+            if ((int)e.NewValue > sender.LayoutRoot.Children.Count * StrokePattern.HighestCount) {
                 MessageBox.Show("这一页已经都画满了哦~\n是什么事情发生了这么多次？");
                 throw new Exception("ZhengZiPanel is all filled! ");
             }
-            int fullZhengZi = (int)Math.Floor((int)e.NewValue / 5.0);
+            int fullZhengZi = (int)Math.Floor((int)e.NewValue / ((double)StrokePattern.HighestCount));
             for (int i = 0; i < fullZhengZi; i++) {
-                ((InkPresenter)sender.LayoutRoot.Children[i]).Strokes = sender.Pattern.GetStrokeCollection();
+                ((InkPattern)sender.LayoutRoot.Children[i]).Count = StrokePattern.HighestCount;
             }
             if (fullZhengZi < sender.LayoutRoot.Children.Count) {
-                ((InkPresenter)sender.LayoutRoot.Children[fullZhengZi]).Strokes = sender.Pattern.GetStrokeCollection((int)e.NewValue - fullZhengZi * 5);
+                ((InkPattern)sender.LayoutRoot.Children[fullZhengZi]).Count = (int)e.NewValue - fullZhengZi * StrokePattern.HighestCount;
             }
-            for (int i = fullZhengZi + 1; i < sender.LayoutRoot.Children.Count; i++) {
-                ((InkPresenter)sender.LayoutRoot.Children[i]).Strokes = sender.Pattern.GetStrokeCollection(0);
+            for (int i = fullZhengZi + 1; i < sender.LayoutRoot.Children.Count - 1; i++) {
+                ((InkPattern)sender.LayoutRoot.Children[i]).Count = 0;
             }
         }
     }

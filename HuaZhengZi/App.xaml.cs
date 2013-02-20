@@ -16,19 +16,28 @@ namespace HuaZhengZi
 {
     public partial class App : Application
     {
-        private static ZhengZiPresenter viewModel = null;
+        private static ZhengZiPresenter zhengZiViewModel = null;
+        private static PatternPresenter patternViewModel = null;
 
         /// <summary>
         /// A static ViewModel used by the views to bind against.
         /// </summary>
         /// <returns>The MainViewModel object.</returns>
-        public static ZhengZiPresenter ViewModel {
+        public static ZhengZiPresenter ZhengZiViewModel {
             get {
                 // Delay creation of the view model until necessary
-                if (viewModel == null)
-                    viewModel = new ZhengZiPresenter();
+                if (zhengZiViewModel == null)
+                    zhengZiViewModel = new ZhengZiPresenter();
 
-                return viewModel;
+                return zhengZiViewModel;
+            }
+        }
+        public static PatternPresenter PatternViewModel {
+            get {
+                if (patternViewModel == null) {
+                    patternViewModel = new PatternPresenter();
+                }
+                return patternViewModel;
             }
         }
 
@@ -78,8 +87,11 @@ namespace HuaZhengZi
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e) {
-            if (!App.ViewModel.IsDataLoaded) {
-                App.ViewModel.LoadData();
+            if (!App.ZhengZiViewModel.IsDataLoaded) {
+                App.ZhengZiViewModel.LoadData();
+            }
+            if (!App.PatternViewModel.IsDataLoaded) {
+                App.PatternViewModel.LoadData();
             }
         }
 
@@ -87,8 +99,11 @@ namespace HuaZhengZi
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e) {
             // Ensure that application state is restored appropriately
-            if (!App.ViewModel.IsDataLoaded) {
-                App.ViewModel.LoadData();
+            if (!App.ZhengZiViewModel.IsDataLoaded) {
+                App.ZhengZiViewModel.LoadData();
+            }
+            if (!App.PatternViewModel.IsDataLoaded) {
+                App.PatternViewModel.LoadData();
             }
         }
 
@@ -96,13 +111,13 @@ namespace HuaZhengZi
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e) {
             // Ensure that required application state is persisted here.
-            App.ViewModel.Save();
+            App.ZhengZiViewModel.Save();
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e) {
-            App.ViewModel.Save();
+            App.ZhengZiViewModel.Save();
         }
 
         // Code to execute if a navigation fails

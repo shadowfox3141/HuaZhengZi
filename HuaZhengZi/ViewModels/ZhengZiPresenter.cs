@@ -27,8 +27,8 @@ namespace HuaZhengZi.ViewModels
             if (!isf.DirectoryExists(ZhengZiPage.DefaultDictionary)) {
                 isf.CreateDirectory(ZhengZiPage.DefaultDictionary);
             }
-            if (!isf.DirectoryExists(InkPresenterPattern.UserDictionary)) {
-                isf.CreateDirectory(InkPresenterPattern.UserDictionary);
+            if (!isf.DirectoryExists(StrokePattern.UserDictionary)) {
+                isf.CreateDirectory(StrokePattern.UserDictionary);
             }
         }
 
@@ -50,8 +50,8 @@ namespace HuaZhengZi.ViewModels
         /// </summary>
         public ObservableCollection<ZhengZiPage> ZhengZiPages { get; private set; }
 
-        private InkPresenterPattern _zhengZiPattern;
-        public InkPresenterPattern ZhengZiPattern {
+        private StrokePattern _zhengZiPattern;
+        public StrokePattern ZhengZiPattern {
             get { return _zhengZiPattern; }
             set {
                 if (!(value == _zhengZiPattern)) {
@@ -102,12 +102,11 @@ namespace HuaZhengZi.ViewModels
                 }
 
                 if (patternPath.StartsWith("Default")) {
-                    ZhengZiPattern = InkPresenterPattern.LoadDefault(patternPath);
+                    ZhengZiPattern = StrokePattern.LoadDefault(patternPath);
                 } else {
-                    ZhengZiPattern = InkPresenterPattern.Load(patternPath);
+                    ZhengZiPattern = StrokePattern.Load(patternPath);
                 }
-            }
-            
+            }         
             this.IsDataLoaded = true;
         }
 
@@ -120,7 +119,7 @@ namespace HuaZhengZi.ViewModels
             }
         }
 
-        InkPresenterPattern page_GetPattern() {
+        StrokePattern page_GetPattern() {
             return ZhengZiPattern;
         }
 

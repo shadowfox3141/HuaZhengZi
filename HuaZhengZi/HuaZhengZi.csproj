@@ -93,10 +93,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Codes\BorderVisibilityConverter.cs" />
     <Compile Include="CreatingPage.xaml.cs">
       <DependentUpon>CreatingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -113,8 +113,12 @@
     <Compile Include="UserControls\InputPopup.xaml.cs">
       <DependentUpon>InputPopup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\InkPresenterPattern.cs" />
-    <Compile Include="ViewModels\ZhengZiPanel.xaml.cs">
+    <Compile Include="UserControls\InkPattern.xaml.cs">
+      <DependentUpon>InkPattern.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StrokePattern.cs" />
+    <Compile Include="ViewModels\PatternPresenter.cs" />
+    <Compile Include="UserControls\ZhengZiPanel.xaml.cs">
       <DependentUpon>ZhengZiPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ZhengZiPage.cs" />
@@ -141,7 +145,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ViewModels\ZhengZiPanel.xaml">
+    <Page Include="UserControls\InkPattern.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ZhengZiPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

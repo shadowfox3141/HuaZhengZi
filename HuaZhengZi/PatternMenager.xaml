@@ -28,11 +28,29 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Button Click="Button_Click">
-                <Button.Content>
-                    <Image Source="Images/appbar.add.rest.png"/>
-                </Button.Content>
-            </Button>
+            <StackPanel Orientation="Vertical">
+                <ListBox ItemsSource="{Binding Path=DefaultPatterns}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="White" BorderThickness="3" Width="100" Height="100">
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <ListBox ItemsSource="{Binding UserPaterns}">
+                    
+                </ListBox>
+                <Button Click="Button_Click">
+                    <Button.Content>
+                        <Image Source="Images/appbar.add.rest.png" Stretch="Fill"/>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
         </Grid>
     </Grid>
 
