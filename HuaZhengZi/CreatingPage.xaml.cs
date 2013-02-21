@@ -51,12 +51,7 @@ namespace HuaZhengZi
                 foreach (ApplicationBarIconButton appBarBtn in (d as CreatingPage).ApplicationBar.Buttons) {
                     appBarBtn.IsEnabled = false;
                 }
-                Popup inputPopup = new Popup();
-                inputPopup.Child = new UserControls.InputPopup();
-                (inputPopup.Child as UserControls.InputPopup).CallPage = d as PhoneApplicationPage;
-                (inputPopup.Child as UserControls.InputPopup).GetResault += CreatingPage_GetResault;
-                Touch.FrameReported -= (d as CreatingPage).Touch_FrameReported;
-                inputPopup.IsOpen = true;
+                (d as CreatingPage).Save_Click(d, new EventArgs());
             }
         }
 
@@ -66,7 +61,7 @@ namespace HuaZhengZi
             }
             if (obj != null) {
                 StrokePattern newPattern = new StrokePattern();
-                newPattern.PatternName = "DefaultP";
+                newPattern.PatternName = obj;
                 foreach (Stroke stroke in (sender as CreatingPage).inkPresenter.Strokes) {
                     Stroke modifiedStroke = new Stroke();
                     modifiedStroke.DrawingAttributes.Color = Colors.White;
@@ -77,6 +72,8 @@ namespace HuaZhengZi
                     }
                     newPattern.Items.Add(new StrokeCollection { modifiedStroke });
                 }
+                App.PatternViewModel.UserPaterns.Add(newPattern);
+                sender.NavigationService.GoBack();
             }
         }
 
@@ -123,7 +120,12 @@ namespace HuaZhengZi
         }
 
         private void Save_Click(object sender, EventArgs e) {
-
+            Popup inputPopup = new Popup();
+            inputPopup.Child = new UserControls.InputPopup();
+            (inputPopup.Child as UserControls.InputPopup).CallPage = this;
+            (inputPopup.Child as UserControls.InputPopup).GetResault += CreatingPage_GetResault;
+            Touch.FrameReported -= this.Touch_FrameReported;
+            inputPopup.IsOpen = true;
         }
     }
 }

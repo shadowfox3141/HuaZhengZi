@@ -75,7 +75,11 @@ namespace HuaZhengZi
                 zhengZiPrensenter.ZhengZiPages[0].ZhengZiCount = 0;
             } else {
                 zhengZiPrensenter.ZhengZiPages.RemoveAt(FixSelectedIndex);
-                PanoramaRoot.SetValue(Panorama.SelectedItemProperty, PanoramaRoot.Items[currentIndex]);
+                if (currentIndex >= PanoramaRoot.Items.Count) {
+                    PanoramaRoot.SetValue(Panorama.SelectedItemProperty, PanoramaRoot.Items[0]);
+                } else {
+                    PanoramaRoot.SetValue(Panorama.SelectedItemProperty, PanoramaRoot.Items[currentIndex]);
+                }
             }
         }
 

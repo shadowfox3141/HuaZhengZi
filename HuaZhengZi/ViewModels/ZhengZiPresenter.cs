@@ -5,6 +5,7 @@ using HuaZhengZi.Resources;
 using System.IO.IsolatedStorage;
 using System.IO;
 using System.Windows;
+using System.Text.RegularExpressions;
 
 namespace HuaZhengZi.ViewModels
 {
@@ -40,6 +41,14 @@ namespace HuaZhengZi.ViewModels
 
                 foreach (ZhengZiPage zhengZiPage in ZhengZiPages) {
                     zhengZiPage.Save("Page_" + zhengZiPage.Index.ToString());
+                }
+                IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
+                string searchPath=Path.Combine(ZhengZiPage.DefaultDictionary,"*.*");
+                Regex regex = new Regex("Page_[0-" + (ZhengZiPages.Count - 1).ToString() + "]");
+                foreach (var name in isf.GetFileNames(searchPath)) {
+                    if (!regex.IsMatch(name)) {
+                        isf.DeleteFile(ZhengZiPage.DefaultDictionary + @"/" + name);
+                    }
                 }
             }
         }

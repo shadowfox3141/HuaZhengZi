@@ -18,6 +18,11 @@ namespace HuaZhengZi.ViewModels
         public PatternPresenter() {
             DefaultPatterns = new ObservableCollection<StrokePattern>();
             UserPaterns = new ObservableCollection<StrokePattern>();
+            UserPaterns.CollectionChanged += Patterns_CollectionChanged;
+        }
+
+        private void Patterns_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) {
+            throw new NotImplementedException();
         }
 
         InkPattern _selectedPattern;

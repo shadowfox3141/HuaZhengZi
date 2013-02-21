@@ -42,12 +42,24 @@
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <uc:InkPattern Pattern="{Binding Path=Items}" Count="5"/>
+                            <uc:InkPattern Pattern="{Binding Path=Items}" Count="5" BorderVisibility="True"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <ListBox ItemsSource="{Binding UserPaterns}">
-
+                <ListBox ItemsSource="{Binding UserPaterns}" Height="350" x:Name="UserList">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <uc:InkPattern Pattern="{Binding Path=Items}" Count="5" BorderVisibility="True"/>
+                                <TextBlock Text="{Binding Path=PatternName}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
                 <Button Click="Button_Click">
                     <Button.Content>
