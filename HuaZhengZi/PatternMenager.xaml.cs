@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using HuaZhengZi.UserControls;
+using HuaZhengZi.ViewModels;
 
 namespace HuaZhengZi
 {
@@ -16,8 +18,13 @@ namespace HuaZhengZi
 
         public PatternMenager() {
             InitializeComponent();
-
             DataContext = patternPresenter;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e) {
+            if (!App.PatternViewModel.IsDataLoaded) {
+                App.PatternViewModel.LoadData();
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {

@@ -20,12 +20,12 @@ namespace HuaZhengZi.UserControls
         }
 
         public static readonly DependencyProperty PatternProperty = DependencyProperty.Register("Pattern", typeof(StrokePattern),
-            typeof(ZhengZiPanel), new PropertyMetadata(ssss));
+            typeof(ZhengZiPanel), new PropertyMetadata(OnPatternChanged));
 
-        private static void ssss(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+        private static void OnPatternChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             ZhengZiPanel sender=d as ZhengZiPanel;
             foreach (var inkPattern in sender.LayoutRoot.Children) {
-                (inkPattern as InkPattern).Pattern = (StrokePattern)e.NewValue;
+                (inkPattern as InkPattern).Pattern = ((StrokePattern)e.NewValue).Items;
             }
         }
 

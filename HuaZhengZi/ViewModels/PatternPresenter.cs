@@ -9,13 +9,35 @@ using HuaZhengZi.Resources;
 using System.IO.IsolatedStorage;
 using System.IO;
 using System.Windows;
+using HuaZhengZi.UserControls;
 
 namespace HuaZhengZi.ViewModels
 {
     public class PatternPresenter:INotifyPropertyChanged
     {
-        public ObservableCollection<StrokePattern> DefaultPatterns;
-        public ObservableCollection<StrokePattern> UserPaterns;
+        public PatternPresenter() {
+            DefaultPatterns = new ObservableCollection<StrokePattern>();
+            UserPaterns = new ObservableCollection<StrokePattern>();
+        }
+
+        InkPattern _selectedPattern;
+        public InkPattern SelectPattern {
+            set {
+                if (value != _selectedPattern) {
+                    _selectedPattern = value;
+                    NotifyPropertyChanged("SelectPattern");
+                }
+            }
+            get {
+                return _selectedPattern;
+            }
+        }
+
+        public ObservableCollection<StrokePattern> DefaultPatterns {
+            get;
+            private set;
+        }
+        public ObservableCollection<StrokePattern> UserPaterns { get; private set; }
 
         public bool IsDataLoaded {
             set;
@@ -24,6 +46,7 @@ namespace HuaZhengZi.ViewModels
         public void LoadData() {
             DefaultPatterns = StrokePattern.LoadDefaultAll();
             UserPaterns = StrokePattern.LoadAll();
+            IsDataLoaded = true;
         }
         public void Save() {
             foreach (var pattern in UserPaterns) {
@@ -31,6 +54,13 @@ namespace HuaZhengZi.ViewModels
             }
         }
 
+
         public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(String propertyName) {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 }

@@ -19,7 +19,7 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderVisibility" Value="True"/>
+            <Setter Property="BorderVisibility" Value="False"/>
             <Setter Property="Margin" Value="0,0,0,0"/>
         </Style>
     </UserControl.Resources>

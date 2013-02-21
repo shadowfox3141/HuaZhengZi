@@ -15,7 +15,7 @@
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot" Background="Transparent"  Width="110" Height="110">
-        <Border BorderBrush="White" 
+        <Border BorderBrush="White"
                 BorderThickness="{Binding ElementName=this,Path=BorderVisibility,Converter={StaticResource ResourceKey=VisibilityConverter}}"
                 Margin="0,0,0,0">
             <InkPresenter x:Name="inkPresenter" Height="100" Width="100"

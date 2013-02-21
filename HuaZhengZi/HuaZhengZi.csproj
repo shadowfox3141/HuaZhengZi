@@ -94,6 +94,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Codes\BorderVisibilityConverter.cs" />
+    <Compile Include="Codes\StrokePattern_CollectionConverter.cs" />
     <Compile Include="CreatingPage.xaml.cs">
       <DependentUpon>CreatingPage.xaml</DependentUpon>
     </Compile>

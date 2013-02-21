@@ -19,7 +19,17 @@ namespace HuaZhengZi.ViewModels
             Items = new List<StrokeCollection>(HighestCount);
         }
 
-        public List<StrokeCollection> Items { get; set; }
+        public List<StrokeCollection> _items;
+        public List<StrokeCollection> Items { get {
+            return _items;
+            }
+            set {
+                if (value != _items) {
+                    _items = value;
+                    NotifyPropertyChanged("Items");
+                }
+            }
+        }
 
         private string _patternName;
         public string PatternName {
@@ -127,7 +137,7 @@ namespace HuaZhengZi.ViewModels
 
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String propertyName) {
+        public void NotifyPropertyChanged(String propertyName) {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (null != handler) {
                 handler(this, new PropertyChangedEventArgs(propertyName));

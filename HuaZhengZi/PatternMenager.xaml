@@ -6,12 +6,17 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:HuaZhengZi.UserControls"
+    xmlns:cd="clr-namespace:HuaZhengZi.Codes"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
+    <UserControl.Resources>
+        <cd:StrokeCollection_PatternConverter x:Key="strokePattern_CollectionConverter"/>
+    </UserControl.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -29,7 +34,7 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel Orientation="Vertical">
-                <ListBox ItemsSource="{Binding Path=DefaultPatterns}">
+                <ListBox ItemsSource="{Binding Path=DefaultPatterns}" x:Name="DefaultList">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
@@ -37,13 +42,12 @@
                     </ListBox.ItemsPanel>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="White" BorderThickness="3" Width="100" Height="100">
-                            </Border>
+                            <uc:InkPattern Pattern="{Binding Path=Items}" Count="5"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <ListBox ItemsSource="{Binding UserPaterns}">
-                    
+
                 </ListBox>
                 <Button Click="Button_Click">
                     <Button.Content>

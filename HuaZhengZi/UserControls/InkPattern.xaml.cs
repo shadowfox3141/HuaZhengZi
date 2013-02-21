@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using HuaZhengZi.ViewModels;
+using System.Windows.Ink;
 
 namespace HuaZhengZi.UserControls
 {
@@ -17,8 +18,19 @@ namespace HuaZhengZi.UserControls
             InitializeComponent();
         }
 
+        public static readonly DependencyProperty PatternProperty = DependencyProperty.Register("Pattern",
+            typeof(List<StrokeCollection>), typeof(InkPattern), new PropertyMetadata(onPatternChanged));
+        public List<StrokeCollection> Pattern {
+            set {
+                SetValue(PatternProperty, value);
+            }
+            get {
+                return (List<StrokeCollection>)GetValue(PatternProperty);
+            }
+        }
+
         public static readonly DependencyProperty CountProperty = DependencyProperty.Register("Count",
-            typeof(int), typeof(InkPattern), new PropertyMetadata(0, RefreshPattern));
+            typeof(int), typeof(InkPattern), new PropertyMetadata(0, onCountChanged));
         public int Count {
             set {
                 if (value != Count) {
@@ -27,15 +39,6 @@ namespace HuaZhengZi.UserControls
             }
             get {
                 return (int)GetValue(CountProperty);
-            }
-        }
-
-        public static readonly DependencyProperty PatternProperty = DependencyProperty.Register("Pattern",
-            typeof(StrokePattern), typeof(InkPattern), new PropertyMetadata(RefreshPattern));
-        public StrokePattern Pattern {
-            set { SetValue(PatternProperty, value); }
-            get {
-                return (StrokePattern)GetValue(PatternProperty);
             }
         }
 
@@ -52,12 +55,28 @@ namespace HuaZhengZi.UserControls
             }
         }
         
-        private static void RefreshPattern(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+        private static void onCountChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             InkPattern sender = d as InkPattern;
             if (sender.Count > StrokePattern.HighestCount) {
                 throw new Exception("InkPattern is all filled! ");
             }
-            sender.inkPresenter.Strokes = sender.Pattern.GetStrokeCollection(sender.Count);
+            sender.RefreshPattern();
+        }
+        private static void onPatternChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+            InkPattern sender = d as InkPattern;
+            sender.RefreshPattern();
+        }
+
+        public void RefreshPattern() {
+            if (Pattern != null) {
+                StrokeCollection collection = new StrokeCollection();
+                for (int i = 0; i < Count; i++) {
+                    foreach (var stroke in Pattern[i]) {
+                        collection.Add(stroke);
+                    }
+                }
+                inkPresenter.Strokes = collection;
+            }
         }
     }
 }
