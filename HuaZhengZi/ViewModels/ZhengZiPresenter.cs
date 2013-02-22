@@ -31,6 +31,7 @@ namespace HuaZhengZi.ViewModels
             if (!isf.DirectoryExists(StrokePattern.UserDictionary)) {
                 isf.CreateDirectory(StrokePattern.UserDictionary);
             }
+            IsDataLoaded = false;
         }
 
         public void Save() {

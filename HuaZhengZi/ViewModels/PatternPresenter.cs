@@ -10,6 +10,7 @@ using System.IO.IsolatedStorage;
 using System.IO;
 using System.Windows;
 using HuaZhengZi.UserControls;
+using System.Text.RegularExpressions;
 
 namespace HuaZhengZi.ViewModels
 {
@@ -19,10 +20,18 @@ namespace HuaZhengZi.ViewModels
             DefaultPatterns = new ObservableCollection<StrokePattern>();
             UserPaterns = new ObservableCollection<StrokePattern>();
             UserPaterns.CollectionChanged += Patterns_CollectionChanged;
+
+            IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
+            if (!isf.DirectoryExists(StrokePattern.UserDictionary)) {
+                isf.CreateDirectory(StrokePattern.UserDictionary);
+            }
         }
 
         private void Patterns_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) {
-            throw new NotImplementedException();
+            ObservableCollection<StrokePattern> collection =(sender as ObservableCollection<StrokePattern>);
+            for (int i=0;i< collection.Count;i++) {
+                collection[i].SaveIndex = i;
+            }
         }
 
         InkPattern _selectedPattern;
@@ -56,6 +65,16 @@ namespace HuaZhengZi.ViewModels
         public void Save() {
             foreach (var pattern in UserPaterns) {
                 pattern.Save();
+            }
+            if (UserPaterns.Count != 0) {
+                IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
+                string searchPath = Path.Combine(StrokePattern.UserDictionary, "*.*");
+                Regex regex = new Regex("Pattern_[0-" + (UserPaterns.Count - 1).ToString() + "]");
+                foreach (var name in isf.GetFileNames(searchPath)) {
+                    if (!regex.IsMatch(name)) {
+                        isf.DeleteFile(StrokePattern.UserDictionary + @"/" + name);
+                    }
+                }
             }
         }
 

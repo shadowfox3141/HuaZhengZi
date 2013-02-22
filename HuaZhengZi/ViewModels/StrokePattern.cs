@@ -43,6 +43,8 @@ namespace HuaZhengZi.ViewModels
                 }
             }
         }
+        public int SaveIndex { set; get; }
+
 
         public override string ToString() {
             return PatternName;
@@ -58,7 +60,7 @@ namespace HuaZhengZi.ViewModels
                 if (!isf.DirectoryExists(UserDictionary)) {
                     isf.CreateDirectory(UserDictionary);
                 }
-                FileStream stream = isf.CreateFile(UserDictionary + "/" + PatternName);
+                FileStream stream = isf.CreateFile(UserDictionary + "/" + "UserPattern_" + SaveIndex.ToString());
                 StreamWriter writer = new StreamWriter(stream);
                 XmlSerializer serializer = new XmlSerializer(this.GetType());
                 serializer.Serialize(writer, this);
@@ -96,7 +98,7 @@ namespace HuaZhengZi.ViewModels
         public static ObservableCollection<StrokePattern> LoadAll() {
             ObservableCollection<StrokePattern> userPatterns = new ObservableCollection<StrokePattern>();
             IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
-            foreach (var file in isf.GetFileNames(UserDictionary)) {
+            foreach (var file in isf.GetFileNames(Path.Combine(UserDictionary, "*.*"))) {
                 StrokePattern pattern;
                 if (isf.FileExists(UserDictionary + "/" + file)) {
                     FileStream stream = isf.OpenFile(UserDictionary + "/" + file, FileMode.Open);
