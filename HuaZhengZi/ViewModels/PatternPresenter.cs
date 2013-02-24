@@ -18,8 +18,8 @@ namespace HuaZhengZi.ViewModels
     {
         public PatternPresenter() {
             DefaultPatterns = new ObservableCollection<StrokePattern>();
-            UserPaterns = new ObservableCollection<StrokePattern>();
-            UserPaterns.CollectionChanged += Patterns_CollectionChanged;
+            UserPatterns = new ObservableCollection<StrokePattern>();
+            UserPatterns.CollectionChanged += Patterns_CollectionChanged;
 
             IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
             if (!isf.DirectoryExists(StrokePattern.UserDictionary)) {
@@ -49,27 +49,31 @@ namespace HuaZhengZi.ViewModels
 
         public ObservableCollection<StrokePattern> DefaultPatterns {
             get;
-            private set;
+            set;
         }
-        public ObservableCollection<StrokePattern> UserPaterns { get; private set; }
+        public ObservableCollection<StrokePattern> UserPatterns { get; set; }
 
         public bool IsDataLoaded {
             set;
             get;
         }
         public void LoadData() {
-            DefaultPatterns = StrokePattern.LoadDefaultAll();
-            UserPaterns = StrokePattern.LoadAll();
+            foreach (var strokeCollection in StrokePattern.LoadDefaultAll()) {
+                DefaultPatterns.Add(strokeCollection);
+            }
+            foreach (var strokeCollection in StrokePattern.LoadAll()) {
+                UserPatterns.Add(strokeCollection);
+            }
             IsDataLoaded = true;
         }
         public void Save() {
-            foreach (var pattern in UserPaterns) {
+            foreach (var pattern in UserPatterns) {
                 pattern.Save();
             }
-            if (UserPaterns.Count != 0) {
+            if (UserPatterns.Count != 0) {
                 IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
                 string searchPath = Path.Combine(StrokePattern.UserDictionary, "*.*");
-                Regex regex = new Regex("Pattern_[0-" + (UserPaterns.Count - 1).ToString() + "]");
+                Regex regex = new Regex("Pattern_[0-" + (UserPatterns.Count - 1).ToString() + "]");
                 foreach (var name in isf.GetFileNames(searchPath)) {
                     if (!regex.IsMatch(name)) {
                         isf.DeleteFile(StrokePattern.UserDictionary + @"/" + name);

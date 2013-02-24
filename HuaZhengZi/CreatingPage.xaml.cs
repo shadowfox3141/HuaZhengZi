@@ -72,11 +72,10 @@ namespace HuaZhengZi
                     }
                     newPattern.Items.Add(new StrokeCollection { modifiedStroke });
                 }
-                App.PatternViewModel.UserPaterns.Add(newPattern);
+                App.PatternViewModel.UserPatterns.Add(newPattern);
                 sender.NavigationService.GoBack();
             }
         }
-
 
         void Touch_FrameReported(object sender, TouchFrameEventArgs e) {
             TouchPoint primaryTouchPoint = e.GetPrimaryTouchPoint(null);

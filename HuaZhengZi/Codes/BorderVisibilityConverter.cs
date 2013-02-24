@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
@@ -14,9 +15,10 @@ namespace HuaZhengZi.Codes
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
             if ((bool)value) {
-                return 3.0;
+                Thickness myThickness = new Thickness(3);
+                return myThickness;
             } else {
-                return 0.0;
+                return null;
             }
         }
 

@@ -162,6 +162,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DefaultPatterns\DefaultPattern_Zheng2.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="DefaultPatterns\DefaultPattern_Zheng.xml">
       <SubType>Designer</SubType>
     </Content>

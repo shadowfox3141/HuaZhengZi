@@ -27,8 +27,9 @@ namespace HuaZhengZi
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) {
+        private void ApplicationBarIconButton_Click(object sender, EventArgs e) {
             NavigationService.Navigate(new Uri("/CreatingPage.xaml", UriKind.Relative));
         }
+
     }
 }

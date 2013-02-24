@@ -20,6 +20,9 @@
                 Margin="0,0,0,0">
             <InkPresenter x:Name="inkPresenter" Height="100" Width="100"
                       Background="Transparent" Margin="0,0,0,0">
+                <InkPresenter.Clip>
+                    <RectangleGeometry Rect="0 0 100 100"/>
+                </InkPresenter.Clip>
             </InkPresenter>
         </Border>
     </Grid>
