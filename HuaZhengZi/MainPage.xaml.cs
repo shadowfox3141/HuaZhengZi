@@ -33,7 +33,9 @@ namespace HuaZhengZi
             if (!App.ZhengZiViewModel.IsDataLoaded) {
                 App.ZhengZiViewModel.LoadData();
             }
-            
+            foreach (ZhengZiPage page in zhengZiPrensenter.ZhengZiPages) {
+                page.NotifyPropertyChanged("Pattern");
+            }
         }
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e) {
             zhengZiPrensenter.CurrentPage = FixSelectedIndex;

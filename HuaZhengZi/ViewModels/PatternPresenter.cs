@@ -14,6 +14,11 @@ using System.Text.RegularExpressions;
 
 namespace HuaZhengZi.ViewModels
 {
+    public struct SaveVector2{
+        public bool IsDefault;
+        public int Index;
+    }
+
     public class PatternPresenter:INotifyPropertyChanged
     {
         public PatternPresenter() {
@@ -34,8 +39,8 @@ namespace HuaZhengZi.ViewModels
             }
         }
 
-        InkPattern _selectedPattern;
-        public InkPattern SelectPattern {
+        StrokePattern _selectedPattern;
+        public StrokePattern SelectPattern {
             set {
                 if (value != _selectedPattern) {
                     _selectedPattern = value;
@@ -58,14 +63,32 @@ namespace HuaZhengZi.ViewModels
             get;
         }
         public void LoadData() {
+            IsolatedStorageSettings setting = IsolatedStorageSettings.ApplicationSettings;
+            SaveVector2 selectedPattern;
+            if (!setting.TryGetValue<SaveVector2>("SelectedPattern", out selectedPattern)) {
+                selectedPattern.IsDefault = true;
+                selectedPattern.Index = 0;
+                setting.Add("SelectedPattern", selectedPattern);
+            }
+
             foreach (var strokeCollection in StrokePattern.LoadDefaultAll()) {
                 DefaultPatterns.Add(strokeCollection);
             }
             foreach (var strokeCollection in StrokePattern.LoadAll()) {
                 UserPatterns.Add(strokeCollection);
             }
+            try {
+                if (selectedPattern.IsDefault) {
+                    SelectPattern = DefaultPatterns[selectedPattern.Index];
+                } else {
+                    SelectPattern = UserPatterns[selectedPattern.Index];
+                }
+            } catch {
+                SelectPattern = DefaultPatterns[0];
+            }
             IsDataLoaded = true;
         }
+
         public void Save() {
             foreach (var pattern in UserPatterns) {
                 pattern.Save();
@@ -80,6 +103,15 @@ namespace HuaZhengZi.ViewModels
                     }
                 }
             }
+            IsolatedStorageSettings setting = IsolatedStorageSettings.ApplicationSettings;
+            SaveVector2 saveSelect;
+            saveSelect.IsDefault = DefaultPatterns.Contains(SelectPattern);
+            if (saveSelect.IsDefault) {
+                saveSelect.Index = DefaultPatterns.IndexOf(SelectPattern);
+            } else {
+                saveSelect.Index = UserPatterns.IndexOf(SelectPattern);
+            }
+            setting["SelectedPattern"] = saveSelect;
         }
 
 

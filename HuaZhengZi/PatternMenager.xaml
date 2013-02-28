@@ -105,7 +105,7 @@
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="默认图样" HorizontalAlignment="Center" FontSize="20" Margin="0,0,0,4"/>
                 <ListBox ItemsSource="{Binding Path=DefaultPatterns}" ItemContainerStyle="{StaticResource DefaultListBoxItem}"
-                         x:Name="DefaultList" BorderThickness="0 2 0 0" BorderBrush="White">
+                         x:Name="DefaultList" BorderThickness="0 2 0 0" BorderBrush="White" SelectionChanged="List_SelectionChanged">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
@@ -114,17 +114,17 @@
                 </ListBox>
                 <TextBlock Text="我创作的图样" HorizontalAlignment="Center" FontSize="20" Margin="0,0,0,4"/>
                 <ListBox x:Name="UserList" ItemContainerStyle="{StaticResource UserListBoxItem}" ItemsSource="{Binding UserPatterns}"
-                         BorderThickness="0 2 0 0" BorderBrush="White" Height="350">
+                         BorderThickness="0 2 0 0" BorderBrush="White" Height="350" SelectionChanged="List_SelectionChanged">
                 </ListBox>
             </StackPanel>
         </Grid>
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar Opacity="1.0">
-             <shell:ApplicationBarIconButton IconUri="Images/appbar.add.rest.png"
-                                            Text="Add" Click="ApplicationBarIconButton_Click"/>
+             <shell:ApplicationBarIconButton IconUri="Images/appbar.add.rest.png" x:Name="AddBtn"
+                                            Text="Add" Click="AddBtn_Click"/>
             <shell:ApplicationBarIconButton IconUri="Images/appbar.delete.rest.png"
-                                            Text="Delete"/>
+                                            Text="Delete" Click="DeleteBtn_Click" x:Name="DeleteBtn"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>

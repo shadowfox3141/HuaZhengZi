@@ -60,17 +60,9 @@ namespace HuaZhengZi.ViewModels
         /// </summary>
         public ObservableCollection<ZhengZiPage> ZhengZiPages { get; private set; }
 
-        private StrokePattern _zhengZiPattern;
         public StrokePattern ZhengZiPattern {
-            get { return _zhengZiPattern; }
-            set {
-                if (!(value == _zhengZiPattern)) {
-                    _zhengZiPattern = value;
-                    NotifyPropertyChanged("ZhengZiPattern");
-                    foreach (ZhengZiPage zhengZiPage in ZhengZiPages) {
-                        zhengZiPage.NotifyPropertyChanged("Pattern");
-                    }
-                }
+            get {
+                return App.PatternViewModel.SelectPattern;
             }
         }
 
@@ -84,19 +76,14 @@ namespace HuaZhengZi.ViewModels
         /// </summary>
         public void LoadData() {
             // Sample data; replace with real data
-            string patternPath;
             if (!System.ComponentModel.DesignerProperties.IsInDesignTool) {
                 IsolatedStorageSettings setting = IsolatedStorageSettings.ApplicationSettings;
-                
-                if (!setting.TryGetValue<int>("CurrentPage", out currentPage)){
+
+                if (!setting.TryGetValue<int>("CurrentPage", out currentPage)) {
                     CurrentPage = 0;
                     setting.Add("CurrentPage", 0);
                 }
-                if (!setting.TryGetValue<string>("DisplayingPattern", out patternPath)) {
-                    patternPath = @"DefaultPattern_Zheng.xml";
-                    setting.Add("DisplayingPattern", @"DefaultPattern_Zheng.xml");
-                }
-               
+
                 IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
                 string searchPath = Path.Combine(ZhengZiPage.DefaultDictionary, "*.*");
                 string[] zhengZiFileNames = isf.GetFileNames(searchPath);
@@ -110,13 +97,8 @@ namespace HuaZhengZi.ViewModels
                 foreach (ZhengZiPage page in ZhengZiPages) {
                     page.GetPattern += page_GetPattern;
                 }
+            }
 
-                if (patternPath.StartsWith("Default")) {
-                    ZhengZiPattern = StrokePattern.LoadDefault(patternPath);
-                } else {
-                    ZhengZiPattern = StrokePattern.Load(patternPath);
-                }
-            }         
             this.IsDataLoaded = true;
         }
 
