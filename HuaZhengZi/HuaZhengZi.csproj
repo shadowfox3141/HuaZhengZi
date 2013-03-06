@@ -98,6 +98,9 @@
     <Compile Include="CreatingPage.xaml.cs">
       <DependentUpon>CreatingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FastView.xaml.cs">
+      <DependentUpon>FastView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -131,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="CreatingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FastView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

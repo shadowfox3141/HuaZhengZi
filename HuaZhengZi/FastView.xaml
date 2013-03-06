@@ -1,0 +1,87 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="HuaZhengZi.FastView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True"
+    xmlns:vm="clr-namespace:HuaZhengZi.ViewModels">
+    <phone:PhoneApplicationPage.Resources>
+        <Style TargetType="ListBoxItem" x:Key="ListBoxStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselected"/>
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="GotoButtonTranslate" Storyboard.TargetProperty="X"
+                                                             From="110" To="0" Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetName="TitleText" Storyboard.TargetProperty="Width"
+                                                             From="360" To="260" Duration="0:0:0.2" >
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseInOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ItemContainer" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="HotPink"/>
+                                            </ObjectAnimationUsingKeyFrames>                                                                        
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentControl x:Name="ItemContainer" Background="{TemplateBinding Background}">
+                                <StackPanel Orientation="Horizontal" Width="470" Margin="15,0,0,8">
+                                    <TextBlock Text="{Binding PageName}" Width="360" FontSize="{StaticResource PhoneFontSizeMedium}" VerticalAlignment="Center" x:Name="TitleText"/>
+                                    <TextBlock Text="{Binding ZhengZiCount}" Width="60" FontSize="{StaticResource PhoneFontSizeLarge}" VerticalAlignment="Center"/>
+                                    <Button Content="Goto" Width="110" Click="Button_Click" FontSize="{StaticResource PhoneFontSizeNormal}">
+                                        <Button.RenderTransform>
+                                            <TranslateTransform X="110" x:Name="GotoButtonTranslate"/>
+                                        </Button.RenderTransform>
+                                    </Button>
+                                </StackPanel>
+                            </ContentControl>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="#FF436C47">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="正字计数器" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="快速视图" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="60"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <ListBox x:Name="PageListBox" ItemContainerStyle="{StaticResource ListBoxStyle}" ItemsSource="{Binding Path=ZhengZiPages}">
+            </ListBox>
+        </Grid>
+    </Grid>
+    
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar Opacity="1.0">
+            <shell:ApplicationBarIconButton IconUri="Images/appbar.add.rest.png" x:Name="AddBtn" Text="Add" Click="AddBtn_Click"/>
+            <shell:ApplicationBarIconButton IconUri="Images/appbar.delete.rest.png" x:Name="DeleteBtn" Text="Delete" Click="DeleteBtn_Click"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>

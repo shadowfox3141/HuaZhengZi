@@ -36,6 +36,8 @@ namespace HuaZhengZi
             foreach (ZhengZiPage page in zhengZiPrensenter.ZhengZiPages) {
                 page.NotifyPropertyChanged("Pattern");
             }
+            //PanoramaRoot.SetValue(Panorama.SelectedItemProperty, zhengZiPrensenter.ZhengZiPages[zhengZiPrensenter.CurrentPage]);
+            PanoramaRoot.SetValue(Panorama.SelectedIndexProperty, zhengZiPrensenter.CurrentPage);
         }
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e) {
             zhengZiPrensenter.CurrentPage = FixSelectedIndex;
@@ -97,7 +99,7 @@ namespace HuaZhengZi
         }
 
         private void KSST_Click(object sender, EventArgs e) {
-            
+            NavigationService.Navigate(new Uri("/FastView.xaml", UriKind.Relative));
         }
 
         private void SZTY_Click(object sender, EventArgs e) {
