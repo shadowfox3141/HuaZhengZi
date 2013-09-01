@@ -9,110 +9,59 @@ using System.Text.RegularExpressions;
 
 namespace HuaZhengZi.ViewModels
 {
-    public class ZhengZiPresenter : INotifyPropertyChanged
-    {
-        int currentPage;
-        public int CurrentPage {
-            set {
-                currentPage = value;
-            }
-            get {
-                return currentPage;
-            }
-        }
-
+    public class ZhengZiPresenter : INotifyPropertyChanged, INotifyPropertyChanging
+    {        
         public ZhengZiPresenter() {
             this.ZhengZiPages = new ObservableCollection<ZhengZiPage>();
-            ZhengZiPages.CollectionChanged += ZhengZiPages_CollectionChanged;
-            IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
-            if (!isf.DirectoryExists(ZhengZiPage.DefaultDictionary)) {
-                isf.CreateDirectory(ZhengZiPage.DefaultDictionary);
+            this.ZhengZiPages.CollectionChanged += ZhengZiPages_CollectionChanged;
+
+            IsolatedStorageSettings setting = IsolatedStorageSettings.ApplicationSettings;
+
+            if (!setting.TryGetValue<int>("CurrentPage", out _currentPage)) {
+                CurrentPage = 0;
+                setting.Add("CurrentPage", 0);
             }
-            if (!isf.DirectoryExists(StrokePattern.UserDictionary)) {
-                isf.CreateDirectory(StrokePattern.UserDictionary);
-            }
-            IsDataLoaded = false;
         }
 
+        private int _currentPage;
+        public int CurrentPage {
+            set {
+                if (value != _currentPage) {
+                    NotifyPropertyChanging("CurrentPage");
+                    _currentPage = value;
+                    NotifyPropertyChanged("CurretnPage");
+                }
+            }
+            get {
+                return _currentPage;
+            }
+        }
+
+        public ObservableCollection<ZhengZiPage> ZhengZiPages { get; private set; }
+
+        void ZhengZiPages_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) {
+            for (int i = 0; i < ZhengZiPages.Count; i++) {
+                ZhengZiPages[i].Index = i;
+            }
+        }
+        /// <summary>
+        /// Save whole ZhengZiPresenter to IsoStorage and Database
+        /// </summary>
         public void Save() {
             if (!System.ComponentModel.DesignerProperties.IsInDesignTool) {
                 IsolatedStorageSettings setting = IsolatedStorageSettings.ApplicationSettings;
                 setting["CurrentPage"] = CurrentPage;
                 setting.Save();
-
-                foreach (ZhengZiPage zhengZiPage in ZhengZiPages) {
-                    zhengZiPage.Save("Page_" + zhengZiPage.Index.ToString());
-                }
-                IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
-                string searchPath=Path.Combine(ZhengZiPage.DefaultDictionary,"*.*");
-                Regex regex = new Regex("Page_[0-" + (ZhengZiPages.Count - 1).ToString() + "]");
-                foreach (var name in isf.GetFileNames(searchPath)) {
-                    if (!regex.IsMatch(name)) {
-                        isf.DeleteFile(ZhengZiPage.DefaultDictionary + @"/" + name);
-                    }
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// A collection for ItemViewModel objects.
-        /// </summary>
-        public ObservableCollection<ZhengZiPage> ZhengZiPages { get; private set; }
-
-        public StrokePattern ZhengZiPattern {
-            get {
-                return App.PatternViewModel.SelectPattern;
-            }
-        }
-
-        public bool IsDataLoaded {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Creates and adds a few ItemViewModel objects into the Items collection.
-        /// </summary>
-        public void LoadData() {
-            // Sample data; replace with real data
-            if (!System.ComponentModel.DesignerProperties.IsInDesignTool) {
-                IsolatedStorageSettings setting = IsolatedStorageSettings.ApplicationSettings;
-
-                if (!setting.TryGetValue<int>("CurrentPage", out currentPage)) {
-                    CurrentPage = 0;
-                    setting.Add("CurrentPage", 0);
-                }
-
-                IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
-                string searchPath = Path.Combine(ZhengZiPage.DefaultDictionary, "*.*");
-                string[] zhengZiFileNames = isf.GetFileNames(searchPath);
-                if (zhengZiFileNames.Length == 0) {
-                    ZhengZiPages.Add(new ZhengZiPage());
-                } else {
-                    foreach (string zhengZiFileName in zhengZiFileNames) {
-                        ZhengZiPages.Add(ZhengZiPage.Load(zhengZiFileName));
-                    }
-                }
-                foreach (ZhengZiPage page in ZhengZiPages) {
-                    page.GetPattern += page_GetPattern;
-                }
             }
 
-            this.IsDataLoaded = true;
-        }
-
-        void ZhengZiPages_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) {
-            for (int i = 0; i < ZhengZiPages.Count;i++ ) {
-                ZhengZiPages[i].Index = i;
-                if (!ZhengZiPages[i].IsPatternAttached) {
-                    ZhengZiPages[i].GetPattern += page_GetPattern;
+            using (Database.ZhengZiPageDataContext database = new Database.ZhengZiPageDataContext(Database.ZhengZiPageDataContext.DBConnectionString)) {
+                database.Items.DeleteAllOnSubmit(database.Items);
+                database.SubmitChanges();
+                foreach (var page in ZhengZiPages) {
+                    database.Items.InsertOnSubmit(page);
                 }
+                database.SubmitChanges();
             }
-        }
-
-        StrokePattern page_GetPattern() {
-            return ZhengZiPattern;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -122,5 +71,14 @@ namespace HuaZhengZi.ViewModels
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+        private void NotifyPropertyChanging(string propertyName) {
+            PropertyChangingEventHandler handler = PropertyChanging;
+            if (null != handler) {
+                handler(this, new PropertyChangingEventArgs(propertyName));
+            }
+        }
+
     }
 }

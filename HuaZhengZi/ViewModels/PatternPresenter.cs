@@ -44,6 +44,11 @@ namespace HuaZhengZi.ViewModels
             set {
                 if (value != _selectedPattern) {
                     _selectedPattern = value;
+                    if (Application.Current.Resources.Contains("SelectedPattern")) {
+                        Application.Current.Resources["SelectedPattern"] = value;
+                    } else {
+                        Application.Current.Resources.Add("SelectedPattern", value);
+                    }
                     NotifyPropertyChanged("SelectPattern");
                 }
             }

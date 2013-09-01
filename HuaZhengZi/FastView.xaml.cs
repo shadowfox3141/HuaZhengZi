@@ -8,35 +8,45 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using HuaZhengZi.ViewModels;
+using System.IO.IsolatedStorage;
 
 namespace HuaZhengZi
 {
     public partial class FastView : PhoneApplicationPage
     {
-        ZhengZiPresenter zhengZiPresenter = App.ZhengZiViewModel;
+        ZhengZiPresenter fastViewZhengZiPresenter;
         public FastView() {
             InitializeComponent();
-            DataContext = zhengZiPresenter;
+            fastViewZhengZiPresenter = new ZhengZiPresenter();
+            foreach (var page in App.AppZhengZiPageDataContext.Items.OrderBy(zhengziPage => zhengziPage.Index)) {
+                fastViewZhengZiPresenter.ZhengZiPages.Add(page);
+            }
+            DataContext = fastViewZhengZiPresenter;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            App.ZhengZiViewModel.CurrentPage = PageListBox.SelectedIndex;
+            fastViewZhengZiPresenter.CurrentPage = PageListBox.SelectedIndex;
             NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
 
         private void AddBtn_Click(object sender, EventArgs e) {
-            zhengZiPresenter.ZhengZiPages.Add(new ZhengZiPage());
+            fastViewZhengZiPresenter.ZhengZiPages.Add(new ZhengZiPage());
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e) {
+            fastViewZhengZiPresenter.Save();
+            base.OnNavigatingFrom(e);
         }
 
         private void DeleteBtn_Click(object sender, EventArgs e) {
-            if (zhengZiPresenter.ZhengZiPages.Count > 0) {
-                zhengZiPresenter.ZhengZiPages.Remove(PageListBox.SelectedItem as ZhengZiPage);
+            if (fastViewZhengZiPresenter.ZhengZiPages.Count > 0) {
+                fastViewZhengZiPresenter.ZhengZiPages.Remove(PageListBox.SelectedItem as ZhengZiPage);
             } else {
-                zhengZiPresenter.ZhengZiPages[0].PageName = ZhengZiPage.DefaultPageName;
-                zhengZiPresenter.ZhengZiPages[0].ZhengZiCount = 0;
+                fastViewZhengZiPresenter.ZhengZiPages[0].PageName = ZhengZiPage.DefaultPageName;
+                fastViewZhengZiPresenter.ZhengZiPages[0].ZhengZiCount = 0;
             }
             PageListBox.SelectedIndex = -1;
-            zhengZiPresenter.CurrentPage = 0;
+            fastViewZhengZiPresenter.CurrentPage = 0;
         }
     }
 }

@@ -60,7 +60,7 @@
             <phone:Panorama.ItemTemplate>
                 <DataTemplate>
                     <Grid Tap="Grid_Tap">
-                        <uc:ZhengZiPanel Pattern="{Binding Path=Pattern}" 
+                        <uc:ZhengZiPanel Pattern="{StaticResource SelectedPattern}" 
                                          Count="{Binding Path=ZhengZiCount}" Margin="0,0,0,80"/>
                     </Grid>
                 </DataTemplate>
@@ -89,6 +89,7 @@
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="快速视图" x:Name="KSST" Click="KSST_Click"/>
                 <shell:ApplicationBarMenuItem Text="选择图样" x:Name="SZTY" Click="SZTY_Click"/>
+                <shell:ApplicationBarMenuItem Text="帮助" x:Name="BZBtn" Click="BZBtn_Click"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
