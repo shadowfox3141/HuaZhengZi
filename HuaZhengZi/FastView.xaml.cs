@@ -48,5 +48,9 @@ namespace HuaZhengZi
             PageListBox.SelectedIndex = -1;
             fastViewZhengZiPresenter.CurrentPage = 0;
         }
+
+        private void AdControl_ErrorOccurred(object sender, Microsoft.Advertising.AdErrorEventArgs e) {
+
+        }
     }
 }

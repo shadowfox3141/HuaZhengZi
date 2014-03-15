@@ -44,7 +44,7 @@
             <StackPanel Width="480" Orientation="Vertical">
                 <TextBlock Text="创作完成，在这里输入名称吧：" FontSize="{StaticResource PhoneFontSizeMediumLarge}" 
                            Margin="20,20,0,10"/>
-                <TextBox x:Name="NameBox" HorizontalAlignment="Stretch" Text="我的图样" FontSize="{StaticResource PhoneFontSizeMedium}"/>
+                <TextBox x:Name="NameBox" HorizontalAlignment="Stretch" Text="我的图案" FontSize="{StaticResource PhoneFontSizeMedium}"/>
                 <StackPanel Width="480" Orientation="Horizontal">
                     <Button x:Name="存储" Content="OK" Click="OKBtn_Click" Margin="5,20,0,0"/>
                     <Button x:Name="取消" Content="Cancel" Click="CancelBtn_Click" Margin="5,20,0,0"/>

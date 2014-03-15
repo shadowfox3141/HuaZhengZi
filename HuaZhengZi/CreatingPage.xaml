@@ -11,25 +11,29 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
+    xmlns:UI="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
     shell:SystemTray.IsVisible="True"
     x:Name="this">
-    
+
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="#FF436C47">
         <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
+        <TextBlock Text="正字计数器" Style="{StaticResource PhoneTextNormalStyle}" Margin="24,21,12,2"/>
+        <UI:AdControl Grid.Row="0" ApplicationId="f3811921-d2fb-4e25-ad72-2732c323b996" AdUnitId="166285" Height="50" Width="300"
+                      HorizontalAlignment="Right" IsAutoRefreshEnabled="True" ErrorOccurred="AdControl_ErrorOccurred"/>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="正字计数器" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Margin="9,-9,0,-3" Style="{StaticResource PhoneTextTitle1Style}" Text="创作我的画法">
-            </TextBlock>
+        <StackPanel Grid.Row="1" Margin="12,17,0,28">
+            <TextBlock Margin="9,-9,0,-3" Style="{StaticResource PhoneTextTitle1Style}" Text="创作我的画法"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,12,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="380"/>
                 <RowDefinition Height="*"/>
@@ -50,11 +54,11 @@
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar Opacity="1">
-            <shell:ApplicationBarIconButton x:Name="Undo" IconUri="Images/appbar.minus.rest.png" Text="Undo"
+            <shell:ApplicationBarIconButton x:Name="Undo" IconUri="Images/appbar.undo.png" Text="撤销"
                                             IsEnabled="False" Click="Undo_Click"/>
-            <shell:ApplicationBarIconButton x:Name="Clear" IconUri="Images/appbar.stop.rest.png" Text="Clear"
+            <shell:ApplicationBarIconButton x:Name="Clear" IconUri="Images/appbar.stop.rest.png" Text="清空"
                                             IsEnabled="False" Click="Clear_Click"/>
-            <shell:ApplicationBarIconButton x:Name="Save" IconUri="Images/appbar.save.rest.png" Text="Save"
+            <shell:ApplicationBarIconButton x:Name="Save" IconUri="Images/appbar.save.rest.png" Text="保存"
                                             IsEnabled="False" Click="Save_Click"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

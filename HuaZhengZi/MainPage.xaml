@@ -12,10 +12,33 @@
     shell:SystemTray.IsVisible="False"
     xmlns:vm="clr-namespace:HuaZhengZi.ViewModels"
     xmlns:uc="clr-namespace:HuaZhengZi.UserControls"
+    xmlns:UI="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
     x:Name="mainPage">
     
+    <phone:PhoneApplicationPage.Triggers>
+        <EventTrigger>
+            <BeginStoryboard>
+                <Storyboard BeginTime="00:00:00">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="GuidePic" Storyboard.TargetProperty="Opacity">
+                        <DiscreteDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                        <DiscreteDoubleKeyFrame KeyTime="00:00:04" Value="1"/>
+                        <EasingDoubleKeyFrame KeyTime="00:00:05" Value="0">
+                            <EasingDoubleKeyFrame.EasingFunction>
+                                <QuarticEase EasingMode="EaseIn"/>
+                            </EasingDoubleKeyFrame.EasingFunction>
+                        </EasingDoubleKeyFrame>
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </phone:PhoneApplicationPage.Triggers>
+    
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="#FF436C47" Height="750">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
         <!-- LOCALIZATION NOTE:
             To localize the displayed strings copy their values to appropriately named
             keys in the app's neutral language resource file (AppResources.resx) then
@@ -35,8 +58,12 @@
             CurrentUICulture of the app at run time.
          -->
 
+        
+        <Image Source="Assets/Tab2Add.png" HorizontalAlignment="Center" VerticalAlignment="Center"
+               Stretch="None" Opacity="1.0" x:Name="GuidePic" Grid.Row="0"/>
+        
         <!--Panorama control-->
-        <phone:Panorama ItemsSource="{Binding Path=ZhengZiPages}" x:Name="PanoramaRoot">
+        <phone:Panorama ItemsSource="{Binding Path=ZhengZiPages}" x:Name="PanoramaRoot" Grid.Row="0">
             <phone:Panorama.Title>
                 <TextBlock Text="正字计数器" FontSize="108" Foreground="White" Margin="0,20,0,0"/>
             </phone:Panorama.Title>
@@ -60,14 +87,16 @@
             <phone:Panorama.ItemTemplate>
                 <DataTemplate>
                     <Grid Tap="Grid_Tap">
-                        <uc:ZhengZiPanel Pattern="{StaticResource SelectedPattern}" 
-                                         Count="{Binding Path=ZhengZiCount}" Margin="0,0,0,80"/>
+                        <uc:ZhengZiPanel Pattern="{Binding Path=SellectedPattern}" Count="{Binding Path=ZhengZiCount}"
+                                         Margin="0,-20,0,0"/>
                     </Grid>
                 </DataTemplate>
             </phone:Panorama.ItemTemplate>
+            <!--
             <phone:Panorama.Background>
                 <SolidColorBrush Color="#FF436C47"/>
             </phone:Panorama.Background>
+            -->
         </phone:Panorama>
 
         <!--Uncomment to see an alignment grid to help ensure your controls are
@@ -78,18 +107,19 @@
             Before shipping remove this XAML and the image itself.-->
         <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
 
+        <UI:AdControl ApplicationId="f3811921-d2fb-4e25-ad72-2732c323b996" AdUnitId="166280" Grid.Row="1"
+                      IsAutoRefreshEnabled="True" ErrorOccurred="AdControl_ErrorOccurred" Width="480" Height="80"/>
     </Grid>
     
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar Opacity="0.5">
-            <shell:ApplicationBarIconButton IconUri="Images/appbar.add.rest.png"
-                                            Text="Add" Click="ApplicationBarIconButton_Add_Click"/>
+        <shell:ApplicationBar Opacity="0.5" Mode="Minimized">
+            <shell:ApplicationBarIconButton IconUri="Images/appbar.page.add.png"
+                                            Text="新建页" Click="ApplicationBarIconButton_Add_Click"/>
             <shell:ApplicationBarIconButton IconUri="Images/appbar.delete.rest.png"
-                                            Text="Delete" Click="ApplicationBarIconButton_Delete_Click"/>
+                                            Text="删除页" Click="ApplicationBarIconButton_Delete_Click"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="快速视图" x:Name="KSST" Click="KSST_Click"/>
-                <shell:ApplicationBarMenuItem Text="选择图样" x:Name="SZTY" Click="SZTY_Click"/>
-                <shell:ApplicationBarMenuItem Text="帮助" x:Name="BZBtn" Click="BZBtn_Click"/>
+                <shell:ApplicationBarMenuItem Text="选择图案" x:Name="SZTY" Click="SZTY_Click"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

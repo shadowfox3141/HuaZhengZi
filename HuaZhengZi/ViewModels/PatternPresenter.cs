@@ -44,12 +44,9 @@ namespace HuaZhengZi.ViewModels
             set {
                 if (value != _selectedPattern) {
                     _selectedPattern = value;
-                    if (Application.Current.Resources.Contains("SelectedPattern")) {
-                        Application.Current.Resources["SelectedPattern"] = value;
-                    } else {
-                        Application.Current.Resources.Add("SelectedPattern", value);
+                    foreach (var page in App.ZhengZiViewModel.ZhengZiPages) {
+                        page.SellectedPattern = value;
                     }
-                    NotifyPropertyChanged("SelectPattern");
                 }
             }
             get {

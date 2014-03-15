@@ -55,7 +55,7 @@ namespace HuaZhengZi
                     UserList.SelectedIndex = nowIndex != 0 ? nowIndex - 1 : nowIndex;
                 }
             } else {
-                MessageBox.Show("不能删除系统默认的图样！", "操作有误", MessageBoxButton.OK);
+                MessageBox.Show("不能删除系统默认的图案！", "操作有误", MessageBoxButton.OK);
             }
         }
 

@@ -126,5 +126,9 @@ namespace HuaZhengZi
             Touch.FrameReported -= this.Touch_FrameReported;
             inputPopup.IsOpen = true;
         }
+
+        private void AdControl_ErrorOccurred(object sender, Microsoft.Advertising.AdErrorEventArgs e) {
+
+        }
     }
 }

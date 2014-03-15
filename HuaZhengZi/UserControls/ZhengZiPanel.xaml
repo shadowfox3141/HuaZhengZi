@@ -8,8 +8,7 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="480" d:DesignWidth="480" Name="this"
-    xmlns:uc="clr-namespace:HuaZhengZi.UserControls">
+             xmlns:uc="clr-namespace:HuaZhengZi.UserControls">
 
     <UserControl.Resources>
         <Style TargetType="uc:InkPattern"  x:Key="CellInkPresenter">
@@ -32,10 +31,10 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="110"/>
         </Grid.RowDefinitions>
 
         <uc:InkPattern Grid.Column="0" Grid.Row="0" Style="{StaticResource ResourceKey=CellInkPresenter}"/>

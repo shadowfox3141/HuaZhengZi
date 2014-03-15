@@ -42,7 +42,7 @@
                             </VisualStateManager.VisualStateGroups>
                             <ContentControl x:Name="ContentContainer" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
                                 <Grid Width="110" Height=" 110" Margin="5,8,5,5">
-                                    <Image Source="Assets/ApplicationIcon.png" Stretch="UniformToFill"  x:Name="SelectedMask" Opacity="0.0"/>
+                                    <Image Source="Assets/Selected.png" Stretch="UniformToFill"  x:Name="SelectedMask" Opacity="0.0"/>
                                     <uc:InkPattern Pattern="{Binding Path=Items}" Count="5" BorderVisibility="True" Width="110" Height="110"/>
                                 </Grid>
                             </ContentControl>
@@ -64,7 +64,7 @@
                                             <DoubleAnimation Storyboard.TargetName="SelectedMask" Storyboard.TargetProperty="Opacity"
                                                              From="0" To="1.0" Duration="0:0:0.2"/>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PatternText" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="HotPink"/>
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="LightCoral"/>
                                             </ObjectAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
@@ -72,13 +72,17 @@
                             </VisualStateManager.VisualStateGroups>
                             <ContentControl Background="{TemplateBinding Background}" VerticalAlignment="{TemplateBinding VerticalAlignment}" HorizontalAlignment="Left"
                                             BorderBrush="White" BorderThickness="3">
-                                <StackPanel Orientation="Horizontal" Margin="10,8,0,0">
-                                    <Grid Height="110" Width="110">
-                                        <Image x:Name="SelectedMask" Source="Assets/ApplicationIcon.png" Opacity="0.0" Stretch="UniformToFill"/>
+                                <Grid Margin="0,8,0,0" Width="450">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" Height="110" Width="110">
+                                        <Image x:Name="SelectedMask" Source="Assets/Selected.png" Opacity="0.0" Stretch="UniformToFill"/>
                                         <uc:InkPattern Pattern="{Binding Path=Items}" Count="5" BorderVisibility="True" Width="110" Height="110" HorizontalAlignment="Left"/>
                                     </Grid>
-                                    <TextBlock x:Name="PatternText" Text="{Binding PatternName}" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                                </StackPanel>
+                                    <TextBlock Grid.Column="1" x:Name="PatternText" Text="{Binding PatternName}" FontSize="40" VerticalAlignment="Center" TextAlignment="Left" Margin="20,0,0,0"/>
+                                </Grid>
                             </ContentControl>
                         </Grid>
                     </ControlTemplate>
@@ -97,13 +101,13 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Text="正字计数器" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="管理我的图样" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="60"/>
+            <TextBlock Text="管理我的图案" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="60"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="默认图样" HorizontalAlignment="Center" FontSize="20" Margin="0,0,0,4"/>
+                <TextBlock Text="默认图案" HorizontalAlignment="Center" FontSize="20" Margin="0,0,0,4"/>
                 <ListBox ItemsSource="{Binding Path=DefaultPatterns}" ItemContainerStyle="{StaticResource DefaultListBoxItem}"
                          x:Name="DefaultList" BorderThickness="0 2 0 0" BorderBrush="White" SelectionChanged="List_SelectionChanged">
                     <ListBox.ItemsPanel>
@@ -112,7 +116,7 @@
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                 </ListBox>
-                <TextBlock Text="我创作的图样" HorizontalAlignment="Center" FontSize="20" Margin="0,0,0,4"/>
+                <TextBlock Text="我创作的图案" HorizontalAlignment="Center" FontSize="20" Margin="0,0,0,4"/>
                 <ListBox x:Name="UserList" ItemContainerStyle="{StaticResource UserListBoxItem}" ItemsSource="{Binding UserPatterns}"
                          BorderThickness="0 2 0 0" BorderBrush="White" Height="350" SelectionChanged="List_SelectionChanged">
                 </ListBox>
@@ -122,9 +126,9 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar Opacity="1.0">
              <shell:ApplicationBarIconButton IconUri="Images/appbar.add.rest.png" x:Name="AddBtn"
-                                            Text="Add" Click="AddBtn_Click"/>
+                                            Text="新建" Click="AddBtn_Click"/>
             <shell:ApplicationBarIconButton IconUri="Images/appbar.delete.rest.png"
-                                            Text="Delete" Click="DeleteBtn_Click" x:Name="DeleteBtn"/>
+                                            Text="删除" Click="DeleteBtn_Click" x:Name="DeleteBtn"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>

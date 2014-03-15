@@ -177,6 +177,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Selected.png" />
+    <Content Include="Assets\Tab2Add.png" />
     <Content Include="DefaultPatterns\DefaultPattern_Zheng2.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -186,8 +188,10 @@
     <Content Include="Images\appbar.add.rest.png" />
     <Content Include="Images\appbar.delete.rest.png" />
     <Content Include="Images\appbar.minus.rest.png" />
+    <Content Include="Images\appbar.page.add.png" />
     <Content Include="Images\appbar.save.rest.png" />
     <Content Include="Images\appbar.stop.rest.png" />
+    <Content Include="Images\appbar.undo.png" />
     <Resource Include="Assets\PanoramaBackground.png" />
     <Content Include="Assets\AlignmentGrid.png" />
     <Content Include="Assets\ApplicationIcon.png">

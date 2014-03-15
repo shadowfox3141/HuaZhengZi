@@ -18,33 +18,40 @@ namespace HuaZhengZi
     {
         bool isTapAccessible = true;
 
-        private ZhengZiPresenter mainPageZhengZiPrensenter;
-
         // Constructor
         public MainPage() {
             InitializeComponent();
             //set datacontext
-            mainPageZhengZiPrensenter = new ZhengZiPresenter();
+            /*
+            App.ZhengZiViewModel = new ZhengZiPresenter();
             foreach (var page in App.AppZhengZiPageDataContext.Items.OrderBy(zhengziPage => zhengziPage.Index)) {
-                mainPageZhengZiPrensenter.ZhengZiPages.Add(page);
+                App.ZhengZiViewModel.ZhengZiPages.Add(page);
+            }*/
+            DataContext = App.ZhengZiViewModel;
+            foreach (var page in App.AppZhengZiPageDataContext.Items.OrderBy(zhengziPage => zhengziPage.Index)) {
+                if (!App.ZhengZiViewModel.ZhengZiPages.Contains(page)) {
+                    App.ZhengZiViewModel.ZhengZiPages.Add(page);
+                }
             }
-            DataContext = mainPageZhengZiPrensenter;
+            App.ZhengZiViewModel.ZhengZiPages.OrderBy(zhengziPage => zhengziPage.Index);
         }
 
         // Load data for the ViewModel Items
         protected override void OnNavigatedTo(NavigationEventArgs e) {
-            PanoramaRoot.SetValue(Panorama.SelectedItemProperty, PanoramaRoot.Items[mainPageZhengZiPrensenter.CurrentPage]);
+            PanoramaRoot.SetValue(Panorama.SelectedItemProperty, PanoramaRoot.Items[App.ZhengZiViewModel.CurrentPage]);
             base.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e) {
-            mainPageZhengZiPrensenter.Save();
+            App.ZhengZiViewModel.Save();
             base.OnNavigatingFrom(e);
         }
 
         private void Grid_Tap(object sender, System.Windows.Input.GestureEventArgs e) {
             if (isTapAccessible) {
-                (PanoramaRoot.Items[fixedSelectedIndex] as ZhengZiPage).ZhengZiCount += 1;
+                try {
+                    (PanoramaRoot.Items[fixedSelectedIndex] as ZhengZiPage).ZhengZiCount += 1;
+                } catch { }
             }
         }
 
@@ -60,19 +67,19 @@ namespace HuaZhengZi
 
         private void ApplicationBarIconButton_Add_Click(object sender, EventArgs e) {
             int currentIndex = fixedSelectedIndex;
-            mainPageZhengZiPrensenter.ZhengZiPages.Add(new ZhengZiPage());
+            App.ZhengZiViewModel.ZhengZiPages.Add(new ZhengZiPage());
             PanoramaRoot.SetValue(Panorama.SelectedItemProperty, PanoramaRoot.Items[currentIndex]);
         }
 
         private void ApplicationBarIconButton_Delete_Click(object sender, EventArgs e) {
             int currentIndex = fixedSelectedIndex;
-            if ((mainPageZhengZiPrensenter.ZhengZiPages.Count == 1) && (mainPageZhengZiPrensenter.ZhengZiPages[0].ZhengZiCount == 0)) {
-                mainPageZhengZiPrensenter.ZhengZiPages[0].PageName = ZhengZiPage.DefaultPageName;
-            } else if (mainPageZhengZiPrensenter.ZhengZiPages.Count == 1) {
-                mainPageZhengZiPrensenter.ZhengZiPages[0].PageName = ZhengZiPage.DefaultPageName;
-                mainPageZhengZiPrensenter.ZhengZiPages[0].ZhengZiCount = 0;
+            if ((App.ZhengZiViewModel.ZhengZiPages.Count == 1) && (App.ZhengZiViewModel.ZhengZiPages[0].ZhengZiCount == 0)) {
+                App.ZhengZiViewModel.ZhengZiPages[0].PageName = ZhengZiPage.DefaultPageName;
+            } else if (App.ZhengZiViewModel.ZhengZiPages.Count == 1) {
+                App.ZhengZiViewModel.ZhengZiPages[0].PageName = ZhengZiPage.DefaultPageName;
+                App.ZhengZiViewModel.ZhengZiPages[0].ZhengZiCount = 0;
             } else {
-                mainPageZhengZiPrensenter.ZhengZiPages.RemoveAt(fixedSelectedIndex);
+                App.ZhengZiViewModel.ZhengZiPages.RemoveAt(fixedSelectedIndex);
                 if (currentIndex >= PanoramaRoot.Items.Count) {
                     PanoramaRoot.SetValue(Panorama.SelectedItemProperty, PanoramaRoot.Items[0]);
                 } else {
@@ -102,6 +109,10 @@ namespace HuaZhengZi
 
         private void BZBtn_Click(object sender, EventArgs e) {
             NavigationService.Navigate(new Uri("/Help_About.xaml", UriKind.Relative));
+        }
+
+        private void AdControl_ErrorOccurred(object sender, Microsoft.Advertising.AdErrorEventArgs e) {
+
         }
     }
 }

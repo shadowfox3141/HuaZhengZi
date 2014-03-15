@@ -11,6 +11,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
+    xmlns:UI="clr-namespace:Microsoft.Advertising.Mobile.UI;assembly=Microsoft.Advertising.Mobile.UI"
     shell:SystemTray.IsVisible="True"
     xmlns:vm="clr-namespace:HuaZhengZi.ViewModels">
     <phone:PhoneApplicationPage.Resources>
@@ -62,6 +63,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
@@ -75,6 +77,9 @@
             <ListBox x:Name="PageListBox" ItemContainerStyle="{StaticResource ListBoxStyle}" ItemsSource="{Binding Path=ZhengZiPages}">
             </ListBox>
         </Grid>
+
+        <UI:AdControl Grid.Row="2" ApplicationId="f3811921-d2fb-4e25-ad72-2732c323b996" AdUnitId="166280"
+                      IsAutoRefreshEnabled="True" ErrorOccurred="AdControl_ErrorOccurred" Width="480" Height="80"/>
     </Grid>
     
     <phone:PhoneApplicationPage.ApplicationBar>

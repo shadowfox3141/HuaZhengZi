@@ -23,15 +23,15 @@ namespace HuaZhengZi.UserControls
             typeof(ZhengZiPanel), new PropertyMetadata(OnPatternChanged));
 
         private static void OnPatternChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-            ZhengZiPanel sender=d as ZhengZiPanel;
+            ZhengZiPanel sender = d as ZhengZiPanel;
             foreach (var inkPattern in sender.LayoutRoot.Children) {
                 (inkPattern as InkPattern).Pattern = ((StrokePattern)e.NewValue).Items;
             }
         }
 
         public StrokePattern Pattern {
-            set { 
-                SetValue(PatternProperty, value); 
+            set {
+                SetValue(PatternProperty, value);
             }
             get {
                 return (StrokePattern)GetValue(PatternProperty);
@@ -41,7 +41,7 @@ namespace HuaZhengZi.UserControls
         public static readonly DependencyProperty CountProperty = DependencyProperty.Register("Count", typeof(int),
             typeof(ZhengZiPanel), new PropertyMetadata(ModifyPanel));
         public int Count {
-            set {               
+            set {
                 SetValue(CountProperty, value);
             }
             get {
@@ -52,10 +52,6 @@ namespace HuaZhengZi.UserControls
 
         private static void ModifyPanel(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             ZhengZiPanel sender = d as ZhengZiPanel;
-            if ((int)e.NewValue > sender.LayoutRoot.Children.Count * StrokePattern.HighestCount) {
-                MessageBox.Show("这一页已经都画满了哦~\n是什么事情发生了这么多次？");
-                throw new Exception("ZhengZiPanel is all filled! ");
-            }
             int fullZhengZi = (int)Math.Floor((int)e.NewValue / ((double)StrokePattern.HighestCount));
             for (int i = 0; i < fullZhengZi; i++) {
                 ((InkPattern)sender.LayoutRoot.Children[i]).Count = StrokePattern.HighestCount;

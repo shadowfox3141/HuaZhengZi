@@ -15,11 +15,9 @@ using System.Data.Linq.Mapping;
 namespace HuaZhengZi.ViewModels
 {
     [Table]
-    public class ZhengZiPage :  INotifyPropertyChanged
+    public class ZhengZiPage : INotifyPropertyChanged
     {
-        public const string DefaultPageName = "Enter Your Title Here";
-
-
+        public const string DefaultPageName = "在这里输入页名";
 
         [Column(IsPrimaryKey = true, CanBeNull = false, AutoSync = AutoSync.Default)]
         public string uid { private set; get; }
@@ -34,7 +32,7 @@ namespace HuaZhengZi.ViewModels
             uid = Guid.NewGuid().ToString();
         }
 
-        
+
         private string _pageName;
         [Column]
         public string PageName {
@@ -49,7 +47,7 @@ namespace HuaZhengZi.ViewModels
             }
         }
 
-        
+
         private int _zhengZiCount;
         [Column]
         public int ZhengZiCount {
@@ -57,9 +55,24 @@ namespace HuaZhengZi.ViewModels
                 return _zhengZiCount;
             }
             set {
-                if (value != _zhengZiCount) {
+                if (value != _zhengZiCount && value <= 80) {
                     _zhengZiCount = value;
                     NotifyPropertyChanged("ZhengZiCount");
+                } else if (value > 80) {
+                    MessageBox.Show("这一页已经都画满了哦~\n是什么事情发生了这么多次？");
+                }
+            }
+        }
+
+        private StrokePattern _SellectedPattern;
+        public StrokePattern SellectedPattern {
+            get {
+                return App.PatternViewModel.SelectPattern;
+            }
+            set {
+                if (value != _SellectedPattern) {
+                    _SellectedPattern = value;
+                    NotifyPropertyChanged("SellectedPattern");
                 }
             }
         }
